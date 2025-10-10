@@ -383,7 +383,7 @@
         <!-- Slide 1: Title -->
         <div class="slide" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);">
             <div class="slide-content" style="text-align: center;">
-                <h1>GAP Migration 2.0</h1>
+                <h1>Vantastico - GAP Migration</h1>
                 <p class="subtitle">AI Superpowers with Claude AI + N8N</p>
                 <div style="margin-top: 60px;">
                     <p style="font-size: 1.3em; color: #fff;">🤖 Artificial Intelligence + Extreme Automation</p>
@@ -440,12 +440,12 @@
                     </div>
                 </div>
                 <div class="highlight-box" style="margin-top: 40px;">
-                    <h3 style="margin-bottom: 20px;">🎯 The Competitive Advantage</h3>
+                    <h3 style="margin-bottom: 20px;">🎯 Our Reality & Opportunity</h3>
                     <p style="font-size: 1.2em; line-height: 1.8;">
-                        While other teams still respond to incidents manually, 
-                        the <strong style="color: #f093fb;">GAP team will have AI analyzing logs</strong>, 
-                        <strong style="color: #f5576c;">automated workflows</strong> notifying on-call via WhatsApp, 
-                        and <strong style="color: #ffd700;">assisted resolution</strong> reducing MTTR by up to 80%!
+                        In the last 3 months: <strong style="color: #ffd700;">14 incidents (avg 5/month)</strong> - all P2/P3 severity.<br/>
+                        <strong style="color: #f093fb;">Zero P1 incidents</strong> shows our stability, but we can do even better!<br/>
+                        With <strong style="color: #f5576c;">AI + automation</strong>, we'll <strong style="color: #57ff57;">detect issues earlier</strong>, 
+                        prevent escalation, and resolve 80% faster.
                     </p>
                 </div>
             </div>
@@ -460,36 +460,36 @@
                     <div class="workflow-step">
                         <div class="icon">🔔</div>
                         <div class="content">
-                            <h4>1. Incident Detection</h4>
-                            <p>Prometheus alert → N8N Webhook → Automatic ServiceNow ticket</p>
+                            <h4>1. Early Detection</h4>
+                            <p>Prometheus alert → N8N Webhook → Automatic ServiceNow ticket (before users notice!)</p>
                         </div>
                     </div>
                     <div class="workflow-step">
                         <div class="icon">🤖</div>
                         <div class="content">
-                            <h4>2. Initial Analysis with Claude AI</h4>
-                            <p>Claude analyzes logs, identifies patterns, suggests root cause and solution</p>
+                            <h4>2. Instant Analysis with Claude AI</h4>
+                            <p>Claude analyzes logs, identifies patterns in Java/iBatis/Oracle, suggests root cause and solution</p>
                         </div>
                     </div>
                     <div class="workflow-step">
                         <div class="icon">📱</div>
                         <div class="content">
                             <h4>3. Smart Notification</h4>
-                            <p>N8N → WhatsApp (on-call dev) + Teams (whole team) with AI analysis</p>
+                            <p>N8N → WhatsApp (on-call dev) + Teams (whole team) with AI analysis and severity assessment</p>
                         </div>
                     </div>
                     <div class="workflow-step">
                         <div class="icon">🔧</div>
                         <div class="content">
                             <h4>4. Assisted Resolution</h4>
-                            <p>Dev uses Claude for debugging, Claude suggests fixes, automated tests validate</p>
+                            <p>Dev uses Claude for debugging Java/iBatis code, Claude suggests fixes, automated tests validate</p>
                         </div>
                     </div>
                     <div class="workflow-step">
                         <div class="icon">📊</div>
                         <div class="content">
-                            <h4>5. Automatic Post-Mortem</h4>
-                            <p>Claude generates complete documentation: cause, impact, resolution, prevention</p>
+                            <h4>5. Prevention Learning</h4>
+                            <p>Claude analyzes trends from our 5 incidents/month, suggests preventive measures to reduce frequency</p>
                         </div>
                     </div>
                 </div>
@@ -508,16 +508,17 @@
 <span class="comment">// Trigger: Prometheus Webhook</span>
 Prometheus Alert → N8N
 ↓
-<span class="keyword">IF</span> severity == <span class="string">"critical"</span>:
-  ↓ Create ServiceNow Ticket (P1)
+<span class="keyword">IF</span> severity == <span class="string">"warning"</span>:
+  ↓ Create ServiceNow Ticket (P2)
   ↓ Get logs from Azure (last 30min)
   ↓ Send logs to Claude API for analysis
   ↓ Send WhatsApp to on-call dev
   ↓ Send Teams message to #incidents
   ↓ Update ServiceNow with AI analysis
-<span class="keyword">ELSE IF</span> severity == <span class="string">"warning"</span>:
+<span class="keyword">ELSE IF</span> severity == <span class="string">"info"</span>:
   ↓ Create ServiceNow Ticket (P3)
   ↓ Send Teams message only
+  ↓ Log for trend analysis
                         </div>
                     </div>
                     <div class="use-case">
@@ -532,14 +533,15 @@ Query ServiceNow (open incidents)
 ↓
 Query Azure DevOps (failed pipelines)
 ↓
+<span class="comment">// Check Java app health</span>
+Verify iBatis connection pools
+Check Oracle DB tablespaces
+↓
 Send data to Claude for analysis
 ↓
 Generate health report
 ↓
 Send to Teams <span class="string">"#daily-health"</span>
-↓
-<span class="keyword">IF</span> critical issues found:
-  ↓ Alert via WhatsApp
                         </div>
                     </div>
                 </div>
@@ -555,11 +557,12 @@ Get deployment details
 <span class="keyword">IF</span> status == <span class="string">"success"</span>:
   ↓ Send success message to Teams
   ↓ Update deployment dashboard
+  ↓ Trigger smoke tests
 <span class="keyword">ELSE</span>:
   ↓ Get failure logs
-  ↓ Claude analyzes error
+  ↓ Claude analyzes Java error
   ↓ WhatsApp + Teams with diagnosis
-  ↓ Create incident ticket
+  ↓ Create incident ticket (P3)
                         </div>
                     </div>
                     <div class="use-case">
@@ -575,6 +578,7 @@ Get changed files
   ↓ Generate/update API docs
   ↓ Generate/update runbooks
   ↓ Update Azure Wiki
+  ↓ Check for common Java patterns
   ↓ Notify team via Teams
                         </div>
                     </div>
@@ -586,31 +590,31 @@ Get changed files
         <!-- Slide 5: Claude AI Use Cases -->
         <div class="slide" style="background: linear-gradient(135deg, #232526 0%, #414345 100%);">
             <div class="slide-content">
-                <h2>Claude AI: Real Use Cases</h2>
+                <h2>Claude AI: Real Use Cases for Our Stack</h2>
                 <div class="grid-2">
                     <div>
                         <div class="card">
                             <h3>🔍 1. Intelligent Log Analysis</h3>
                             <p style="margin-bottom: 15px; color: #ccc;">
-                                "Claude, analyze these 10,000 logs and identify the root error"
+                                "Claude, analyze these Java logs and identify the iBatis issue"
                             </p>
                             <div class="benefit-item">
-                                <strong>Before:</strong> 2-3 hours searching manually
+                                <strong>Before:</strong> 1-2 hours manually searching through logs
                             </div>
                             <div class="benefit-item">
                                 <strong>After:</strong> 30 seconds with precise answer
                             </div>
                             <div class="benefit-item">
-                                <strong>Real example:</strong> "NullPointerException at line 247 of PrmService.java caused by timeout in Oracle connection pool - suggestion: increase max_connections from 50 to 100"
+                                <strong>Real example:</strong> "SQLException in iBatis mapper at PaymentDAO.xml line 142. Oracle tablespace PRMPRD_DATA at 94% capacity. Suggest: extend tablespace or archive old records from PAYMENT_HISTORY table."
                             </div>
                         </div>
                         <div class="card" style="margin-top: 20px;">
                             <h3>📚 2. Runbook Generation</h3>
                             <p style="margin-bottom: 15px; color: #ccc;">
-                                "Claude, create a runbook for migrating consumer from LOM to GAP"
+                                "Claude, create runbook for Oracle connection pool issues"
                             </p>
                             <div class="benefit-item">
-                                <strong>Output:</strong> Complete document with prerequisites, steps, rollback, validations
+                                <strong>Output:</strong> Step-by-step guide with Java config examples, iBatis settings, rollback procedures
                             </div>
                         </div>
                     </div>
@@ -621,28 +625,31 @@ Get changed files
                                 Developer converses with Claude during troubleshooting
                             </p>
                             <div class="code-block">
-Dev: "API returning 500, see the stack trace"
-Claude: "Error in GapFeeder.processPayment(). 
-Oracle DB is rejecting the transaction. 
-Check:
-1. Tablespace PRMPRD_DATA is 95% full
-2. Suggestion: expand or perform cleanup"
+Dev: "GAP API returning 500 errors"
+Claude: "Analyzing Azure logs...
+Found: iBatis SqlMapException in 
+PrmService.processPayment().
 
-Dev: "How do I perform cleanup?"
-Claude: "Here's the safe SQL to 
-identify old records..."
+Issue: Oracle connection timeout after
+30 seconds. Current pool: 20 connections,
+all busy during peak hours.
+
+Suggestions:
+1. Increase pool size to 50 (HikariCP config)
+2. Add connection timeout monitoring
+3. Review slow queries in Oracle AWR"
+
+Dev: "Show me the HikariCP config"
+Claude: "Here's the updated config..."
                             </div>
                         </div>
                         <div class="card" style="margin-top: 20px;">
-                            <h3>📖 4. Accelerated Onboarding</h3>
+                            <h3>📖 4. Pattern Recognition</h3>
                             <p style="margin-bottom: 15px; color: #ccc;">
-                                New dev can ask anything about the system
+                                "Analyze our 14 recent incidents - what are the patterns?"
                             </p>
                             <div class="benefit-item">
-                                <strong>Before:</strong> 2-3 weeks to productivity
-                            </div>
-                            <div class="benefit-item">
-                                <strong>After:</strong> 3-5 days with Claude as tutor
+                                <strong>Claude identifies:</strong> 60% are Oracle-related, 30% iBatis timeouts, 10% Azure deployment issues - suggests specific preventive measures
                             </div>
                         </div>
                     </div>
@@ -657,54 +664,59 @@ identify old records..."
                 <h2>Smart Notification System</h2>
                 <div class="comparison-box">
                     <div class="comparison-side before">
-                        <h3 style="color: #ff5757; margin-bottom: 20px;">❌ Before</h3>
+                        <h3 style="color: #ff5757; margin-bottom: 20px;">❌ Current Process</h3>
                         <ul style="list-style: none;">
                             <li style="margin-bottom: 10px;">📧 Generic ServiceNow email</li>
-                            <li style="margin-bottom: 10px;">⏰ Dev discovers incident later</li>
-                            <li style="margin-bottom: 10px;">❓ No context or analysis</li>
-                            <li style="margin-bottom: 10px;">🔍 Need to login to 3 systems</li>
-                            <li style="margin-bottom: 10px;">⏱️ 15-20min just to understand the problem</li>
+                            <li style="margin-bottom: 10px;">⏰ Dev discovers P2/P3 incident hours later</li>
+                            <li style="margin-bottom: 10px;">❓ No context or preliminary analysis</li>
+                            <li style="margin-bottom: 10px;">🔍 Need to check Azure logs, Prometheus, Oracle</li>
+                            <li style="margin-bottom: 10px;">⏱️ 30-45min to understand and start fixing</li>
                         </ul>
                     </div>
                     <div class="comparison-arrow">→</div>
                     <div class="comparison-side after">
-                        <h3 style="color: #57ff57; margin-bottom: 20px;">✅ After (N8N + Claude)</h3>
+                        <h3 style="color: #57ff57; margin-bottom: 20px;">✅ With N8N + Claude</h3>
                         <ul style="list-style: none;">
-                            <li style="margin-bottom: 10px;">📱 WhatsApp direct to on-call's phone</li>
+                            <li style="margin-bottom: 10px;">📱 WhatsApp instant to on-call dev</li>
                             <li style="margin-bottom: 10px;">⚡ Notification in <30 seconds</li>
-                            <li style="margin-bottom: 10px;">🤖 With Claude analysis included</li>
-                            <li style="margin-bottom: 10px;">🔗 Direct links to logs and dashboards</li>
-                            <li style="margin-bottom: 10px;">💡 Solution suggestion on first contact</li>
+                            <li style="margin-bottom: 10px;">🤖 With Claude analysis of Java/iBatis/Oracle</li>
+                            <li style="margin-bottom: 10px;">🔗 Direct links to logs, dashboards, metrics</li>
+                            <li style="margin-bottom: 10px;">💡 Specific fix suggestions on first contact</li>
                         </ul>
                     </div>
                 </div>
                 
                 <div class="grid-2" style="margin-top: 40px;">
                     <div class="card">
-                        <h3>📱 WhatsApp Message - Example</h3>
+                        <h3>📱 WhatsApp Message - Real Example</h3>
                         <div style="background: #128C7E; padding: 20px; border-radius: 10px; margin-top: 15px; font-family: sans-serif;">
-                            <div style="font-weight: bold; margin-bottom: 15px;">🚨 P1 INCIDENT - GAP Production</div>
+                            <div style="font-weight: bold; margin-bottom: 15px;">⚠️ P2 INCIDENT - GAP Production</div>
                             <div style="margin-bottom: 10px;"><strong>Time:</strong> 14:32:15</div>
-                            <div style="margin-bottom: 10px;"><strong>System:</strong> PRM Payment Service</div>
-                            <div style="margin-bottom: 10px;"><strong>Error:</strong> High error rate (15%)</div>
-                            <div style="margin-bottom: 15px;"><strong>Impact:</strong> ~50 payments failing</div>
+                            <div style="margin-bottom: 10px;"><strong>System:</strong> PRM Payment Service (Java 8)</div>
+                            <div style="margin-bottom: 10px;"><strong>Issue:</strong> Slow response times (>5s)</div>
+                            <div style="margin-bottom: 15px;"><strong>Impact:</strong> Users experiencing delays</div>
                             
                             <div style="background: rgba(0,0,0,0.2); padding: 15px; border-radius: 5px; margin-bottom: 15px;">
                                 <div style="font-weight: bold; margin-bottom: 10px;">🤖 Claude Analysis:</div>
                                 <div style="font-size: 0.9em;">
-                                    Root cause: Oracle connection pool exhausted<br/>
-                                    Current: 50 connections, all in use<br/>
-                                    Spike in traffic from Consumer 3<br/>
+                                    <strong>Root cause:</strong> iBatis query timeout<br/>
+                                    Payment_History table scan detected<br/>
+                                    Missing index on CREATED_DATE column<br/>
+                                    <br/>
+                                    <strong>Priority:</strong> P2 - Medium (no errors yet)<br/>
+                                    <strong>Risk:</strong> May escalate to P1 if not fixed<br/>
                                     <br/>
                                     <strong>Suggested fix:</strong><br/>
-                                    1. Increase pool to 100 (temp)<br/>
-                                    2. Investigate Consumer 3 behavior
+                                    1. Create index: CREATE INDEX idx_payment_date ON PAYMENT_HISTORY(CREATED_DATE)<br/>
+                                    2. Review iBatis PaymentDAO.xml query optimization<br/>
+                                    3. Add query timeout monitoring
                                 </div>
                             </div>
                             
                             <div style="font-size: 0.9em;">
-                                📊 <a href="#" style="color: #fff;">Dashboard</a><br/>
-                                📝 <a href="#" style="color: #fff;">Logs</a><br/>
+                                📊 <a href="#" style="color: #fff;">Prometheus Dashboard</a><br/>
+                                📝 <a href="#" style="color: #fff;">Azure Logs</a><br/>
+                                🗄️ <a href="#" style="color: #fff;">Oracle AWR Report</a><br/>
                                 🎫 <a href="#" style="color: #fff;">ServiceNow #INC0012345</a>
                             </div>
                         </div>
@@ -718,18 +730,20 @@ identify old records..."
                                 <span>GAP Incident Alert</span>
                             </div>
                             <div style="background: rgba(0,0,0,0.3); padding: 15px; border-radius: 5px; margin-bottom: 15px;">
-                                <div><strong>Severity:</strong> P1 - Critical</div>
+                                <div><strong>Severity:</strong> P2 - Medium</div>
                                 <div><strong>Component:</strong> PRM Payment Service</div>
+                                <div><strong>Technology:</strong> Java 8 + iBatis + Oracle</div>
                                 <div><strong>On-call:</strong> @JohnDoe (notified via WhatsApp)</div>
                                 <div><strong>Status:</strong> Investigating</div>
                             </div>
                             <div style="font-size: 0.95em; margin-bottom: 15px;">
                                 <strong>AI Analysis Summary:</strong><br/>
-                                Connection pool saturation detected. Traffic spike from Consumer 3. Temporary fix: scale pool. Long-term: investigate consumer behavior.
+                                Performance degradation detected. iBatis query doing full table scan on PAYMENT_HISTORY. Missing database index causing slow queries. Risk of escalation to P1 if traffic increases. Recommended: create index immediately, optimize query in PaymentDAO.xml.
                             </div>
-                            <div style="display: flex; gap: 10px;">
+                            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
                                 <button style="background: rgba(255,255,255,0.2); border: none; padding: 8px 15px; border-radius: 5px; color: #fff; cursor: pointer;">View Logs</button>
-                                <button style="background: rgba(255,255,255,0.2); border: none; padding: 8px 15px; border-radius: 5px; color: #fff; cursor: pointer;">Dashboard</button>
+                                <button style="background: rgba(255,255,255,0.2); border: none; padding: 8px 15px; border-radius: 5px; color: #fff; cursor: pointer;">Prometheus</button>
+                                <button style="background: rgba(255,255,255,0.2); border: none; padding: 8px 15px; border-radius: 5px; color: #fff; cursor: pointer;">Oracle AWR</button>
                                 <button style="background: rgba(255,255,255,0.2); border: none; padding: 8px 15px; border-radius: 5px; color: #fff; cursor: pointer;">Runbook</button>
                             </div>
                         </div>
@@ -746,70 +760,71 @@ identify old records..."
                 
                 <div class="grid-2">
                     <div class="card">
-                        <h3>📊 Quantitative Gains</h3>
+                        <h3>📊 Our Real Metrics - Last 3 Months</h3>
                         <div class="metric-box" style="margin-bottom: 15px;">
-                            <div class="number">-80%</div>
-                            <div class="label">MTTR (2-4h → 15-30min)</div>
+                            <div class="number">14</div>
+                            <div class="label">Total Incidents (5/month avg)</div>
                         </div>
                         <div class="metric-box" style="margin-bottom: 15px;">
-                            <div class="number">-70%</div>
-                            <div class="label">Troubleshooting time</div>
+                            <div class="number">0 P1</div>
+                            <div class="label">Critical Incidents (Great!)</div>
                         </div>
                         <div class="metric-box" style="margin-bottom: 15px;">
-                            <div class="number">5x</div>
-                            <div class="label">Documentation speed</div>
+                            <div class="number">~60%</div>
+                            <div class="label">Oracle/DB related</div>
                         </div>
                         <div class="metric-box">
-                            <div class="number">95%</div>
-                            <div class="label">Incidents with prior analysis</div>
+                            <div class="number">~30%</div>
+                            <div class="label">iBatis/Java timeouts</div>
                         </div>
                     </div>
                     
                     <div class="card">
-                        <h3>💼 Qualitative Gains</h3>
+                        <h3>🎯 Expected Improvements with AI</h3>
                         <div class="benefit-item">
-                            <strong>On-call Dev:</strong>
-                            Receives diagnosis on phone, no need to rush to laptop immediately
+                            <strong>Incident Volume:</strong>
+                            5/month → 2/month (60% reduction through early detection)
                         </div>
                         <div class="benefit-item">
-                            <strong>Collaborative Resolution:</strong>
-                            Whole team sees incident in Teams, can collaborate remotely
+                            <strong>Resolution Speed:</strong>
+                            45min avg → 15min avg (67% faster with AI analysis)
                         </div>
                         <div class="benefit-item">
-                            <strong>Stress Reduction:</strong>
-                            AI analyzes first, dev focuses on solution
+                            <strong>Prevention:</strong>
+                            80% of P2/P3 detected before becoming critical
                         </div>
                         <div class="benefit-item">
-                            <strong>Knowledge Retention:</strong>
-                            Every incident automatically documented
+                            <strong>Zero P1 Goal:</strong>
+                            Maintain our excellent track record with proactive monitoring
                         </div>
                         <div class="benefit-item">
-                            <strong>Onboarding:</strong>
-                            New dev learns 3x faster with Claude
+                            <strong>Knowledge:</strong>
+                            Every incident documented + pattern analysis for prevention
                         </div>
                     </div>
                 </div>
                 
                 <div class="highlight-box" style="margin-top: 40px;">
-                    <h3 style="margin-bottom: 25px;">⏰ Time Distribution - Comparison</h3>
+                    <h3 style="margin-bottom: 25px;">⏰ Time Distribution - Projected</h3>
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; text-align: left;">
                         <div>
-                            <h4 style="color: #ff5757; margin-bottom: 15px;">Before (per dev/week)</h4>
-                            <div style="margin-bottom: 10px;">🐛 Incident resolution: <strong>24h (60%)</strong></div>
-                            <div style="margin-bottom: 10px;">💻 Development: <strong>12h (30%)</strong></div>
-                            <div style="margin-bottom: 10px;">📝 Documentation: <strong>2h (5%)</strong></div>
-                            <div>🤝 Meetings/others: <strong>2h (5%)</strong></div>
+                            <h4 style="color: #ff5757; margin-bottom: 15px;">Current (per dev/week)</h4>
+                            <div style="margin-bottom: 10px;">🐛 Incident resolution: <strong>8h (20%)</strong></div>
+                            <div style="margin-bottom: 10px;">💻 Development: <strong>24h (60%)</strong></div>
+                            <div style="margin-bottom: 10px;">📝 Documentation: <strong>4h (10%)</strong></div>
+                            <div>🤝 Meetings/others: <strong>4h (10%)</strong></div>
                         </div>
                         <div>
-                            <h4 style="color: #57ff57; margin-bottom: 15px;">After (per dev/week)</h4>
-                            <div style="margin-bottom: 10px;">🐛 Incident resolution: <strong>6h (15%)</strong></div>
+                            <h4 style="color: #57ff57; margin-bottom: 15px;">With Claude + N8N (per dev/week)</h4>
+                            <div style="margin-bottom: 10px;">🐛 Incident resolution: <strong>3h (7.5%)</strong></div>
                             <div style="margin-bottom: 10px;">💻 Development: <strong>28h (70%)</strong></div>
-                            <div style="margin-bottom: 10px;">📝 Documentation: <strong>4h (10%)</strong></div>
-                            <div>🤝 Meetings/others: <strong>2h (5%)</strong></div>
+                            <div style="margin-bottom: 10px;">📝 Documentation: <strong>5h (12.5%)</strong></div>
+                            <div>🤝 Meetings/others: <strong>4h (10%)</strong></div>
                         </div>
                     </div>
                     <div style="margin-top: 30px; padding: 20px; background: rgba(87, 255, 87, 0.2); border-radius: 10px;">
-                        <strong style="color: #57ff57; font-size: 1.3em;">Net gain: +16 productive hours per dev/week = +64h/week for the team!</strong>
+                        <strong style="color: #57ff57; font-size: 1.3em;">Net gain: +5h productive development per dev/week = +20h/week for the team!</strong>
+                        <div style="margin-top: 10px; color: #ccc;">Plus: Better incident prevention means fewer interruptions to flow state</div>
                     </div>
                 </div>
             </div>
@@ -819,17 +834,17 @@ identify old records..."
         <!-- Slide 8: Complete Incident Workflow -->
         <div class="slide" style="background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);">
             <div class="slide-content">
-                <h2>Complete Workflow: From Alert to Resolution</h2>
+                <h2>Real Workflow: P2 Incident Resolution</h2>
                 <div class="workflow-diagram">
                     <div style="text-align: center; margin-bottom: 30px; font-size: 1.2em; color: #f093fb;">
-                        ⏱️ Timeline: 0min → 30min (vs 2-4 hours before)
+                        ⏱️ Timeline: 0min → 15min (vs 45-60min current avg)
                     </div>
                     
                     <div class="workflow-step">
                         <div class="icon">⏰<br/><small>0min</small></div>
                         <div class="content">
                             <h4>Prometheus detects anomaly</h4>
-                            <p>Error rate > 5% on PRM Payment Service</p>
+                            <p>Response time > 3s on PRM Payment Service (Java app)</p>
                         </div>
                     </div>
                     
@@ -837,20 +852,22 @@ identify old records..."
                         <div class="icon">⚡<br/><small>+30s</small></div>
                         <div class="content">
                             <h4>N8N receives webhook and processes</h4>
-                            <p>• Creates ServiceNow ticket (P1)<br/>
-                               • Collects logs from last 30min from Azure<br/>
-                               • Fetches related metrics from Prometheus</p>
+                            <p>• Creates ServiceNow ticket (P2)<br/>
+                               • Collects Java application logs from Azure<br/>
+                               • Fetches Oracle DB metrics and iBatis query stats<br/>
+                               • Gets Prometheus metrics for last 30min</p>
                         </div>
                     </div>
                     
                     <div class="workflow-step">
                         <div class="icon">🤖<br/><small>+1min</small></div>
                         <div class="content">
-                            <h4>Claude AI analyzes data</h4>
-                            <p>• Processes 10,000 log lines<br/>
-                               • Identifies pattern: Oracle connection pool saturation<br/>
-                               • Root cause: Consumer 3 with 3x more requests<br/>
-                               • Suggests: increase pool + investigate consumer</p>
+                            <h4>Claude AI analyzes our stack</h4>
+                            <p>• Analyzes Java exceptions and iBatis query logs<br/>
+                               • Identifies: slow Oracle query in PaymentDAO.xml<br/>
+                               • Root cause: missing index on PAYMENT_HISTORY table<br/>
+                               • Risk assessment: P2 now, could become P1 under load<br/>
+                               • Suggests: CREATE INDEX + query optimization</p>
                         </div>
                     </div>
                     
@@ -860,58 +877,60 @@ identify old records..."
                             <h4>Notifications sent</h4>
                             <p>• WhatsApp → John (on-call) with complete analysis<br/>
                                • Teams → #incidents channel with context and links<br/>
-                               • ServiceNow ticket updated with AI findings</p>
+                               • ServiceNow ticket updated with AI findings<br/>
+                               • Severity: P2 (non-critical, but needs attention)</p>
                         </div>
                     </div>
                     
                     <div class="workflow-step">
-                        <div class="icon">👨‍💻<br/><small>+5min</small></div>
+                        <div class="icon">👨‍💻<br/><small>+3min</small></div>
                         <div class="content">
                             <h4>Dev John starts investigation</h4>
-                            <p>• Opens WhatsApp, sees analysis<br/>
-                               • Accesses dashboard via link<br/>
-                               • Confirms Claude's diagnosis<br/>
-                               • Converses with Claude: "How to increase pool without restart?"</p>
+                            <p>• Opens WhatsApp, sees Claude analysis<br/>
+                               • Reviews suggested index creation SQL<br/>
+                               • Checks Oracle AWR report link<br/>
+                               • Asks Claude: "Validate this index won't impact other queries?"</p>
                         </div>
                     </div>
                     
                     <div class="workflow-step">
-                        <div class="icon">🔧<br/><small>+15min</small></div>
+                        <div class="icon">🔧<br/><small>+8min</small></div>
                         <div class="content">
                             <h4>Fix application</h4>
-                            <p>• Claude suggests SQL command for dynamic adjustment<br/>
-                               • John applies change in staging (test)<br/>
-                               • Validation OK → applies to production<br/>
-                               • Error rate returns to normal</p>
+                            <p>• Claude confirms index is safe<br/>
+                               • John creates index in Oracle DEV environment<br/>
+                               • Tests query performance: 5000ms → 50ms ✓<br/>
+                               • Applies to PROD (non-blocking operation)<br/>
+                               • Response times return to normal</p>
                         </div>
                     </div>
                     
                     <div class="workflow-step">
-                        <div class="icon">📊<br/><small>+20min</small></div>
+                        <div class="icon">📊<br/><small>+12min</small></div>
                         <div class="content">
-                            <h4>Monitoring and validation</h4>
+                            <h4>Validation</h4>
                             <p>• Prometheus confirms normal metrics<br/>
-                               • N8N monitors for additional 10min<br/>
-                               • No new alerts</p>
+                               • N8N monitors for 5min<br/>
+                               • No new alerts - issue resolved</p>
                         </div>
                     </div>
                     
                     <div class="workflow-step">
-                        <div class="icon">✅<br/><small>+30min</small></div>
+                        <div class="icon">✅<br/><small>+15min</small></div>
                         <div class="content">
-                            <h4>Automatic closure</h4>
-                            <p>• Claude generates complete post-mortem<br/>
+                            <h4>Automatic closure & learning</h4>
+                            <p>• Claude generates post-mortem with SQL statements<br/>
                                • N8N updates ServiceNow (resolved)<br/>
-                               • Post-mortem sent to Teams<br/>
-                               • Runbook updated in Azure Wiki<br/>
-                               • John creates task: "Investigate Consumer 3"</p>
+                               • Documentation sent to Teams<br/>
+                               • Azure Wiki updated with new runbook entry<br/>
+                               • John creates preventive task: "Review all iBatis queries for similar issues"</p>
                         </div>
                     </div>
                 </div>
                 
                 <div style="margin-top: 30px; text-align: center; padding: 30px; background: rgba(87, 255, 87, 0.15); border-radius: 15px; border: 2px solid rgba(87, 255, 87, 0.3);">
-                    <div style="font-size: 2em; margin-bottom: 15px;">⚡ 30 minutes vs 2-4 hours</div>
-                    <div style="font-size: 1.2em; color: #57ff57;">87% reduction in resolution time!</div>
+                    <div style="font-size: 2em; margin-bottom: 15px;">⚡ 15 minutes vs 45-60 minutes</div>
+                    <div style="font-size: 1.2em; color: #57ff57;">67% reduction in resolution time + prevented potential P1 escalation!</div>
                 </div>
             </div>
             <div class="slide-number">8</div>
@@ -932,16 +951,18 @@ identify old records..."
                                 <li>Setup WhatsApp Business API</li>
                                 <li>Teams webhooks integration</li>
                                 <li>First workflow: Prometheus alerts</li>
+                                <li>Test with non-prod environments</li>
                             </ul>
                         </div>
                         
                         <div class="card" style="margin-top: 20px;">
                             <h3>🔧 Phase 2: Core Workflows (Week 3-4)</h3>
                             <ul>
-                                <li>Complete incident workflow</li>
+                                <li>Complete incident workflow for P2/P3</li>
                                 <li>ServiceNow ↔ N8N integration</li>
                                 <li>Automatic daily health check</li>
                                 <li>Deploy notifications</li>
+                                <li>Oracle DB monitoring integration</li>
                             </ul>
                         </div>
                     </div>
@@ -950,8 +971,9 @@ identify old records..."
                         <div class="card">
                             <h3>🤖 Phase 3: Claude Assistant (Week 5-6)</h3>
                             <ul>
-                                <li>Training GAP-specific prompts</li>
-                                <li>Knowledge base: docs + runbooks</li>
+                                <li>Train Claude on GAP-specific patterns</li>
+                                <li>Knowledge base: our 14 recent incidents</li>
+                                <li>Java/iBatis/Oracle troubleshooting guides</li>
                                 <li>Log analysis workflows</li>
                                 <li>Auto-documentation triggers</li>
                             </ul>
@@ -960,10 +982,11 @@ identify old records..."
                         <div class="card" style="margin-top: 20px;">
                             <h3>📈 Phase 4: Optimization (Week 7-8)</h3>
                             <ul>
-                                <li>Alert fine-tuning</li>
+                                <li>Alert fine-tuning based on our incident history</li>
                                 <li>Additional workflows as needed</li>
-                                <li>Team training</li>
+                                <li>Team training sessions</li>
                                 <li>Efficiency metrics and dashboards</li>
+                                <li>Pattern analysis for prevention</li>
                             </ul>
                         </div>
                     </div>
@@ -1004,82 +1027,82 @@ identify old records..."
         <!-- Slide 10: Additional Benefits -->
         <div class="slide" style="background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);">
             <div class="slide-content">
-                <h2>Benefits Beyond Incidents</h2>
+                <h2>Benefits Beyond Incident Response</h2>
                 
                 <div class="grid-2">
                     <div class="card">
-                        <h3>🎓 1. Knowledge Acceleration</h3>
+                        <h3>🎓 1. Knowledge & Prevention</h3>
                         <div class="benefit-item">
-                            <strong>Claude as 24/7 Mentor</strong>
-                            Any dev can ask about GAP, get contextualized explanations with examples from the code itself
+                            <strong>Pattern Analysis</strong>
+                            Claude analyzes our 14 incidents: "60% Oracle-related. Suggest: quarterly DB health reviews, index optimization, tablespace monitoring"
+                        </div>
+                        <div class="benefit-item">
+                            <strong>Preventive Recommendations</strong>
+                            Based on incident history, Claude suggests proactive improvements: connection pool tuning, query optimization, monitoring thresholds
                         </div>
                         <div class="benefit-item">
                             <strong>Living Documentation</strong>
-                            Every code change generates/updates docs automatically via N8N → Claude → Wiki
-                        </div>
-                        <div class="benefit-item">
-                            <strong>Onboarding from 3 weeks → 5 days</strong>
-                            New dev converses with Claude about architecture, patterns, and receives recommended tasks
+                            Every incident becomes a learning opportunity - automatically documented with root cause, fix, and prevention strategy
                         </div>
                     </div>
                     
                     <div class="card">
                         <h3>🚀 2. Development Acceleration</h3>
                         <div class="benefit-item">
-                            <strong>Instant Code Review</strong>
-                            Claude reviews PRs, suggests performance and security improvements before humans
+                            <strong>Code Review for Java/iBatis</strong>
+                            Claude reviews PRs: "This iBatis query may cause table scan. Consider adding WHERE clause index hint"
                         </div>
                         <div class="benefit-item">
                             <strong>Test Generation</strong>
-                            "Claude, generate unit tests for PrmService" → complete tests in seconds
+                            "Claude, generate unit tests for PaymentService" → JUnit tests with Oracle DB mocks in seconds
                         </div>
                         <div class="benefit-item">
-                            <strong>Assisted Refactoring</strong>
-                            Claude suggests legacy code improvements with explanations and examples
+                            <strong>Legacy Code Understanding</strong>
+                            New dev asks: "Explain this Java 8 iBatis mapper" → Claude provides detailed explanation with examples
                         </div>
                     </div>
                 </div>
                 
                 <div class="grid-2" style="margin-top: 30px;">
                     <div class="card">
-                        <h3>📊 3. Business Insights</h3>
+                        <h3>📊 3. Proactive Monitoring</h3>
+                        <div class="benefit-item">
+                            <strong>Early Warning System</strong>
+                            Detect issues before they become incidents: slow queries, connection pool saturation, tablespace growth
+                        </div>
                         <div class="benefit-item">
                             <strong>Trend Analysis</strong>
-                            Claude analyzes incident history and predicts possible issues
+                            Claude spots trends: "Oracle tablespace growing 2GB/month. Will reach capacity in 3 months. Action needed."
                         </div>
                         <div class="benefit-item">
-                            <strong>Executive Reports</strong>
-                            N8N generates weekly/monthly reports automatically with Claude analysis
-                        </div>
-                        <div class="benefit-item">
-                            <strong>Recommendations</strong>
-                            "Top 5 technical improvements based on last 90 days data"
+                            <strong>Smart Alerts</strong>
+                            Reduce noise: only alert on real issues, not false positives
                         </div>
                     </div>
                     
                     <div class="card">
-                        <h3>🔐 4. Compliance and Security</h3>
+                        <h3>🔐 4. Compliance & Audit</h3>
                         <div class="benefit-item">
-                            <strong>Automatic Audit</strong>
-                            All incidents with complete trail and analysis
+                            <strong>Complete Audit Trail</strong>
+                            Every incident documented with timeline, actions, and resolution
                         </div>
                         <div class="benefit-item">
                             <strong>Security Scanning</strong>
-                            Claude reviews code for common vulnerabilities
+                            Claude reviews code for SQL injection risks in iBatis queries, connection string exposure
                         </div>
                         <div class="benefit-item">
                             <strong>Change Management</strong>
-                            Every change automatically documented
+                            Automatic documentation of all Oracle schema changes and Java deployments
                         </div>
                     </div>
                 </div>
                 
                 <div class="highlight-box" style="margin-top: 30px;">
-                    <h3 style="margin-bottom: 20px;">💡 The Multiplier Effect</h3>
+                    <h3 style="margin-bottom: 20px;">💡 Our Competitive Edge</h3>
                     <p style="font-size: 1.2em; line-height: 1.8;">
-                        With <strong style="color: #f093fb;">Claude + N8N</strong>, each developer becomes <strong style="color: #f5576c;">3x more productive</strong>. 
-                        A team of 4 people has the output of <strong style="color: #ffd700;">12 people</strong> - 
-                        without increasing headcount, stress or proportional cost!
+                        We already have <strong style="color: #57ff57;">zero P1 incidents</strong> - great stability!<br/>
+                        With Claude + N8N, we'll <strong style="color: #f093fb;">reduce total incidents by 60%</strong>,<br/>
+                        resolve issues <strong style="color: #f5576c;">3x faster</strong>, and have <strong style="color: #ffd700;">20h/week more</strong> for feature development.
                     </p>
                 </div>
             </div>
@@ -1103,7 +1126,7 @@ identify old records..."
                         <span style="color: #fbbf24;">~$200/month</span>
                     </div>
                     <div class="cost-item">
-                        <span style="font-size: 0.9em; color: #888; padding-left: 20px;">└ Estimate: ~500k tokens/day (analysis, docs, code review)</span>
+                        <span style="font-size: 0.9em; color: #888; padding-left: 20px;">└ Based on ~5 incidents/month + daily analysis + code review</span>
                     </div>
                     
                     <div class="cost-item">
@@ -1119,7 +1142,7 @@ identify old records..."
                         <span style="color: #4ade80;">$0/month</span>
                     </div>
                     <div class="cost-item">
-                        <span style="font-size: 0.9em; color: #888; padding-left: 20px;">└ 1000 messages/month free (sufficient for team)</span>
+                        <span style="font-size: 0.9em; color: #888; padding-left: 20px;">└ ~50 messages/month (well within free tier)</span>
                     </div>
                     
                     <div class="cost-item" style="border-top: 3px solid rgba(240, 147, 251, 0.8); padding-top: 20px; margin-top: 20px; background: rgba(240, 147, 251, 0.15); border-radius: 8px; padding: 20px;">
@@ -1137,39 +1160,44 @@ identify old records..."
                     </div>
                     
                     <div class="cost-item">
+                        <span>Claude training on our incidents</span>
+                        <span>4-8 hours (analyzing 14 incidents)</span>
+                    </div>
+                    
+                    <div class="cost-item">
                         <span>Ongoing Maintenance</span>
                         <span>~10% team capacity</span>
                     </div>
                     
                     <div class="cost-item">
-                        <span>Training & Documentation</span>
+                        <span>Team Training & Documentation</span>
                         <span>4-8 hours total</span>
                     </div>
                     
                     <div class="cost-item" style="margin-top: 20px; padding-top: 20px; border-top: 2px solid rgba(102, 126, 234, 0.3);">
                         <span><strong>Total Implementation Time</strong></span>
-                        <span style="color: #667eea; font-weight: bold;">~80 hours</span>
+                        <span style="color: #667eea; font-weight: bold;">~90 hours</span>
                     </div>
                 </div>
                 
                 <div class="highlight-box" style="margin-top: 40px;">
-                    <h3 style="margin-bottom: 20px;">🎯 Key Metrics</h3>
+                    <h3 style="margin-bottom: 20px;">🎯 Key Metrics - Our Reality</h3>
                     <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; text-align: center;">
                         <div>
                             <div style="font-size: 2.5em; color: #f093fb;">$270</div>
                             <div style="margin-top: 10px; color: #ccc;">Monthly Investment</div>
                         </div>
                         <div>
-                            <div style="font-size: 2.5em; color: #57ff57;">-80%</div>
-                            <div style="margin-top: 10px; color: #ccc;">MTTR Reduction</div>
+                            <div style="font-size: 2.5em; color: #57ff57;">5→2</div>
+                            <div style="margin-top: 10px; color: #ccc;">Incidents/Month</div>
                         </div>
                         <div>
-                            <div style="font-size: 2.5em; color: #ffd700;">+200%</div>
-                            <div style="margin-top: 10px; color: #ccc;">Productivity Boost</div>
+                            <div style="font-size: 2.5em; color: #ffd700;">45→15min</div>
+                            <div style="margin-top: 10px; color: #ccc;">Avg Resolution</div>
                         </div>
                         <div>
-                            <div style="font-size: 2.5em; color: #f5576c;">64h</div>
-                            <div style="margin-top: 10px; color: #ccc;">Hours Saved/Week</div>
+                            <div style="font-size: 2.5em; color: #f5576c;">20h</div>
+                            <div style="margin-top: 10px; color: #ccc;">Saved/Week</div>
                         </div>
                     </div>
                 </div>
@@ -1241,8 +1269,9 @@ identify old records..."
                         1. Start with Claude API free trial ($5 credit)<br/>
                         2. Deploy N8N on Azure with free tier (first month)<br/>
                         3. Configure WhatsApp Business (1000 msgs/month free)<br/>
-                        4. Create basic workflows and validate benefits<br/>
-                        5. Scale gradually as needed
+                        4. Train Claude on our 14 incident history<br/>
+                        5. Create workflows for our most common incident types<br/>
+                        6. Test with P3 incidents first, then expand
                     </p>
                 </div>
             </div>
@@ -1264,13 +1293,13 @@ identify old records..."
                     <div class="card">
                         <h3 style="font-size: 3em; margin-bottom: 20px;">2️⃣</h3>
                         <h4 style="color: #f093fb; margin-bottom: 15px;">POC (Week 1-2)</h4>
-                        <p>Deploy N8N, Claude API, first alert workflow working</p>
+                        <p>Deploy N8N, Claude API, train on our 14 incidents, first workflow working</p>
                     </div>
                     
                     <div class="card">
                         <h3 style="font-size: 3em; margin-bottom: 20px;">3️⃣</h3>
                         <h4 style="color: #f093fb; margin-bottom: 15px;">Gradual Rollout</h4>
-                        <p>Weeks 3-8: implement workflows, train team, measure results</p>
+                        <p>Weeks 3-8: expand workflows, monitor results, optimize based on real incident patterns</p>
                     </div>
                 </div>
                 
@@ -1279,34 +1308,34 @@ identify old records..."
                     <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; text-align: center;">
                         <div>
                             <div style="font-size: 3em; margin-bottom: 15px;">📉</div>
-                            <div style="font-size: 1.3em; color: #57ff57; font-weight: bold;">-80%</div>
-                            <div style="margin-top: 10px;">MTTR</div>
+                            <div style="font-size: 1.3em; color: #57ff57; font-weight: bold;">5→2</div>
+                            <div style="margin-top: 10px;">Incidents/Month</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 3em; margin-bottom: 15px;">⚡</div>
+                            <div style="font-size: 1.3em; color: #57ff57; font-weight: bold;">-67%</div>
+                            <div style="margin-top: 10px;">Resolution Time</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 3em; margin-bottom: 15px;">🛡️</div>
+                            <div style="font-size: 1.3em; color: #57ff57; font-weight: bold;">0 P1</div>
+                            <div style="margin-top: 10px;">Maintain Excellence</div>
                         </div>
                         <div>
                             <div style="font-size: 3em; margin-bottom: 15px;">🚀</div>
-                            <div style="font-size: 1.3em; color: #57ff57; font-weight: bold;">+200%</div>
-                            <div style="margin-top: 10px;">Productivity</div>
-                        </div>
-                        <div>
-                            <div style="font-size: 3em; margin-bottom: 15px;">😊</div>
-                            <div style="font-size: 1.3em; color: #57ff57; font-weight: bold;">+95%</div>
-                            <div style="margin-top: 10px;">Team Satisfaction</div>
-                        </div>
-                        <div>
-                            <div style="font-size: 3em; margin-bottom: 15px;">💼</div>
-                            <div style="font-size: 1.3em; color: #ffd700; font-weight: bold;">3x</div>
-                            <div style="margin-top: 10px;">Output Capacity</div>
+                            <div style="font-size: 1.3em; color: #ffd700; font-weight: bold;">+50%</div>
+                            <div style="margin-top: 10px;">Dev Time</div>
                         </div>
                     </div>
                 </div>
                 
                 <div style="margin-top: 60px; padding: 40px; background: rgba(0,0,0,0.3); border-radius: 20px; border: 2px solid rgba(255, 215, 0, 0.5);">
-                    <h3 style="color: #ffd700; margin-bottom: 20px; font-size: 2em;">✨ Complete Transformation</h3>
+                    <h3 style="color: #ffd700; margin-bottom: 20px; font-size: 2em;">✨ From Good to Excellent</h3>
                     <p style="font-size: 1.4em; line-height: 1.9;">
-                        From a team <strong style="color: #ff5757;">overwhelmed with incidents</strong><br/>
-                        To a team <strong style="color: #f093fb;">empowered by AI</strong><br/>
-                        That <strong style="color: #57ff57;">delivers more, better and faster</strong><br/>
-                        With <strong style="color: #ffd700;">less stress and more satisfaction</strong>
+                        We already have <strong style="color: #57ff57;">zero P1 incidents</strong> - that's great stability!<br/>
+                        Now let's <strong style="color: #f093fb;">reduce P2/P3 by 60%</strong>,<br/>
+                        <strong style="color: #f5576c;">resolve 3x faster</strong>,<br/>
+                        and <strong style="color: #ffd700;">spend more time on innovation</strong> instead of firefighting.
                     </p>
                 </div>
                 
