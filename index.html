@@ -1,7 +1,9 @@
-<html lang="en"><head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GAP Migration - Claude AI &amp; N8N</title>
+    <title>GAP Migration - Claude AI & N8N</title>
     <style>
         * {
             margin: 0;
@@ -11,8 +13,8 @@
         
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #0a0a0a;
-            color: #fff;
+            background: #FFFFFF;
+            color: #2C2C2C;
             overflow-x: hidden;
         }
         
@@ -34,6 +36,7 @@
             padding: 60px;
             scroll-snap-align: start;
             position: relative;
+            background: #FFFFFF;
         }
         
         .slide::before {
@@ -43,7 +46,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            opacity: 0.05;
+            opacity: 0.03;
             z-index: 0;
         }
         
@@ -58,36 +61,32 @@
             bottom: 30px;
             right: 40px;
             font-size: 14px;
-            color: #888;
+            color: #999;
         }
         
         h1 {
             font-size: 3.5em;
             margin-bottom: 20px;
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 50%, #ffd700 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: #FF6200;
+            font-weight: bold;
         }
         
         h2 {
             font-size: 2.5em;
             margin-bottom: 30px;
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: #FF6200;
+            font-weight: bold;
         }
         
         h3 {
             font-size: 1.8em;
             margin-bottom: 20px;
-            color: #f093fb;
+            color: #FF6200;
         }
         
         .subtitle {
             font-size: 1.5em;
-            color: #aaa;
+            color: #666;
             margin-bottom: 40px;
         }
         
@@ -106,18 +105,18 @@
         }
         
         .card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(240, 147, 251, 0.2);
+            background: #FFFFFF;
+            border: 2px solid #FF6200;
             border-radius: 15px;
             padding: 30px;
-            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 15px rgba(255, 98, 0, 0.1);
             transition: all 0.3s ease;
         }
         
         .card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 40px rgba(240, 147, 251, 0.3);
-            border-color: rgba(240, 147, 251, 0.5);
+            box-shadow: 0 10px 30px rgba(255, 98, 0, 0.25);
+            border-color: #FF6200;
         }
         
         .card h3 {
@@ -135,6 +134,7 @@
             padding-left: 25px;
             position: relative;
             line-height: 1.6;
+            color: #2C2C2C;
         }
         
         .card li::before {
@@ -142,37 +142,36 @@
             position: absolute;
             left: 0;
             font-size: 1.2em;
+            color: #FF6200;
         }
         
         .metric-box {
-            background: linear-gradient(135deg, rgba(240, 147, 251, 0.2) 0%, rgba(245, 87, 108, 0.2) 100%);
+            background: linear-gradient(135deg, rgba(255, 98, 0, 0.1) 0%, rgba(255, 98, 0, 0.05) 100%);
             border-radius: 15px;
             padding: 25px;
             text-align: center;
-            border: 2px solid rgba(240, 147, 251, 0.3);
+            border: 2px solid #FF6200;
         }
         
         .metric-box .number {
             font-size: 3em;
             font-weight: bold;
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: #FF6200;
             margin-bottom: 10px;
         }
         
         .metric-box .label {
             font-size: 1.1em;
-            color: #ccc;
+            color: #666;
         }
         
         .workflow-diagram {
-            background: rgba(255, 255, 255, 0.03);
-            border: 2px solid rgba(240, 147, 251, 0.2);
+            background: #FFFFFF;
+            border: 2px solid #FF6200;
             border-radius: 20px;
             padding: 40px;
             margin-top: 30px;
+            box-shadow: 0 4px 20px rgba(255, 98, 0, 0.1);
         }
         
         .workflow-step {
@@ -180,9 +179,9 @@
             align-items: center;
             margin-bottom: 25px;
             padding: 20px;
-            background: rgba(240, 147, 251, 0.1);
+            background: rgba(255, 98, 0, 0.05);
             border-radius: 10px;
-            border-left: 4px solid #f093fb;
+            border-left: 4px solid #FF6200;
         }
         
         .workflow-step .icon {
@@ -197,31 +196,35 @@
         }
         
         .workflow-step h4 {
-            color: #f093fb;
+            color: #FF6200;
             margin-bottom: 8px;
             font-size: 1.3em;
         }
         
+        .workflow-step p {
+            color: #2C2C2C;
+        }
+        
         .tech-badge {
-            background: rgba(240, 147, 251, 0.2);
+            background: #FF6200;
+            color: #FFFFFF;
             padding: 10px 20px;
             border-radius: 20px;
-            border: 1px solid #f093fb;
             font-weight: 500;
             display: inline-block;
             margin: 5px;
         }
         
         .benefit-item {
-            background: rgba(240, 147, 251, 0.1);
-            border-left: 4px solid #f093fb;
+            background: rgba(255, 98, 0, 0.05);
+            border-left: 4px solid #FF6200;
             padding: 15px 20px;
             margin-bottom: 15px;
             border-radius: 5px;
         }
         
         .benefit-item strong {
-            color: #f093fb;
+            color: #FF6200;
             display: block;
             margin-bottom: 5px;
         }
@@ -232,7 +235,8 @@
             gap: 20px;
             align-items: center;
             padding: 30px;
-            background: rgba(255, 255, 255, 0.03);
+            background: #FFFFFF;
+            border: 2px solid #FF6200;
             border-radius: 15px;
             margin-top: 30px;
         }
@@ -244,71 +248,88 @@
         
         .comparison-side.before {
             background: rgba(255, 87, 87, 0.1);
-            border: 2px solid rgba(255, 87, 87, 0.3);
+            border: 2px solid #FF5757;
         }
         
         .comparison-side.after {
-            background: rgba(87, 255, 87, 0.1);
-            border: 2px solid rgba(87, 255, 87, 0.3);
+            background: rgba(255, 98, 0, 0.1);
+            border: 2px solid #FF6200;
+        }
+        
+        .comparison-side h3 {
+            margin-bottom: 20px;
+        }
+        
+        .comparison-side ul {
+            list-style: none;
+        }
+        
+        .comparison-side ul li {
+            color: #2C2C2C;
         }
         
         .comparison-arrow {
             font-size: 3em;
-            color: #f093fb;
+            color: #FF6200;
         }
         
         .code-block {
-            background: #1a1a1a;
-            border: 1px solid rgba(240, 147, 251, 0.3);
+            background: #F5F5F5;
+            border: 2px solid #FF6200;
             border-radius: 10px;
             padding: 20px;
             font-family: 'Courier New', monospace;
             font-size: 0.9em;
             overflow-x: auto;
             margin-top: 15px;
+            color: #2C2C2C;
         }
         
         .code-block .comment {
-            color: #888;
+            color: #999;
         }
         
         .code-block .keyword {
-            color: #f093fb;
+            color: #FF6200;
+            font-weight: bold;
         }
         
         .code-block .string {
-            color: #ffd700;
+            color: #0066CC;
         }
         
         .links-section {
-            background: rgba(255, 255, 255, 0.03);
+            background: #FFFFFF;
+            border: 2px solid #FF6200;
             border-radius: 15px;
             padding: 30px;
             margin-top: 30px;
         }
         
         .links-section a {
-            color: #f093fb;
+            color: #FF6200;
             text-decoration: none;
             display: block;
             padding: 10px 0;
             transition: color 0.3s;
+            font-weight: 500;
         }
         
         .links-section a:hover {
-            color: #f5576c;
+            color: #CC4E00;
+            text-decoration: underline;
         }
         
         .cost-box {
-            background: linear-gradient(135deg, rgba(240, 147, 251, 0.15) 0%, rgba(245, 87, 108, 0.15) 100%);
+            background: rgba(255, 98, 0, 0.05);
             border-radius: 15px;
             padding: 25px;
             margin-top: 20px;
-            border: 2px solid rgba(240, 147, 251, 0.3);
+            border: 2px solid #FF6200;
         }
         
         .cost-box h4 {
-            color: #f093fb;
+            color: #FF6200;
             margin-bottom: 15px;
             font-size: 1.3em;
         }
@@ -317,7 +338,8 @@
             display: flex;
             justify-content: space-between;
             padding: 10px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(255, 98, 0, 0.2);
+            color: #2C2C2C;
         }
         
         .cost-item:last-child {
@@ -325,27 +347,78 @@
         }
         
         .highlight-box {
-            background: linear-gradient(135deg, rgba(240, 147, 251, 0.2) 0%, rgba(245, 87, 108, 0.2) 100%);
-            border: 2px solid #f093fb;
+            background: linear-gradient(135deg, rgba(255, 98, 0, 0.1) 0%, rgba(255, 98, 0, 0.05) 100%);
+            border: 3px solid #FF6200;
             border-radius: 15px;
             padding: 30px;
             margin-top: 30px;
             text-align: center;
         }
         
+        .highlight-box h3 {
+            margin-bottom: 20px;
+        }
+        
+        .highlight-box p {
+            color: #2C2C2C;
+        }
+        
         .use-case {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(240, 147, 251, 0.2);
+            background: #FFFFFF;
+            border: 2px solid #FF6200;
             border-radius: 10px;
             padding: 20px;
             margin-bottom: 20px;
         }
         
         .use-case .title {
-            color: #f093fb;
+            color: #FF6200;
             font-size: 1.2em;
             font-weight: bold;
             margin-bottom: 10px;
+        }
+        
+        /* Slide específico para título */
+        .slide.title-slide {
+            background: linear-gradient(135deg, #FF6200 0%, #FF8533 50%, #FFAA66 100%);
+            color: #FFFFFF;
+        }
+        
+        .slide.title-slide h1,
+        .slide.title-slide .subtitle,
+        .slide.title-slide p {
+            color: #FFFFFF;
+        }
+        
+        /* WhatsApp example */
+        .whatsapp-message {
+            background: #25D366;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 15px;
+            font-family: sans-serif;
+            color: #FFFFFF;
+        }
+        
+        .whatsapp-message strong {
+            color: #FFFFFF;
+        }
+        
+        .whatsapp-message a {
+            color: #FFFFFF;
+        }
+        
+        /* Teams example */
+        .teams-message {
+            background: #6264A7;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 15px;
+            color: #FFFFFF;
+        }
+        
+        .teams-message strong {
+            color: #FFFFFF;
         }
         
         @media (max-width: 768px) {
@@ -379,13 +452,13 @@
     <div class="slide-container">
         
         <!-- Slide 1: Title -->
-        <div class="slide" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);">
+        <div class="slide title-slide">
             <div class="slide-content" style="text-align: center;">
                 <h1>Vantastico - GAP Migration</h1>
                 <p class="subtitle">AI Superpowers with Claude AI + N8N</p>
                 <div style="margin-top: 60px;">
-                    <p style="font-size: 1.3em; color: #fff;">🤖 Artificial Intelligence + Extreme Automation</p>
-                    <p style="font-size: 1em; color: #ddd; margin-top: 20px;">Taking the 4-developer team to the next level</p>
+                    <p style="font-size: 1.3em;">🤖 Artificial Intelligence + Extreme Automation</p>
+                    <p style="font-size: 1em; margin-top: 20px;">Taking the 4-developer team to the next level</p>
                 </div>
                 <div style="margin-top: 50px; display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
                     <div style="text-align: center;">
@@ -406,11 +479,11 @@
                     </div>
                 </div>
             </div>
-            <div class="slide-number">1</div>
+            <div class="slide-number" style="color: #FFFFFF;">1</div>
         </div>
 
         <!-- Slide 2: The Power of Combination -->
-        <div class="slide" style="background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);">
+        <div class="slide">
             <div class="slide-content">
                 <h2>Why Claude AI + N8N?</h2>
                 <div class="grid-2">
@@ -438,11 +511,11 @@
                     </div>
                 </div>
                 <div class="highlight-box" style="margin-top: 40px;">
-                    <h3 style="margin-bottom: 20px;">🎯 Our Reality &amp; Opportunity</h3>
+                    <h3 style="margin-bottom: 20px;">🎯 Our Reality & Opportunity</h3>
                     <p style="font-size: 1.2em; line-height: 1.8;">
-                        In the last 3 months: <strong style="color: #ffd700;">14 incidents (avg 5/month)</strong> - all P2/P3 severity.<br>
-                        <strong style="color: #f093fb;">Zero P1 incidents</strong> shows our stability, but we can do even better!<br>
-                        With <strong style="color: #f5576c;">AI + automation</strong>, we'll <strong style="color: #57ff57;">detect issues earlier</strong>, 
+                        In the last 3 months: <strong style="color: #FF6200;">14 incidents (avg 5/month)</strong> - all P2/P3 severity.<br>
+                        <strong style="color: #FF6200;">Zero P1 incidents</strong> shows our stability, but we can do even better!<br>
+                        With <strong style="color: #FF6200;">AI + automation</strong>, we'll <strong>detect issues earlier</strong>, 
                         prevent escalation, and resolve 80% faster.
                     </p>
                 </div>
@@ -451,7 +524,7 @@
         </div>
 
         <!-- Slide 3: Solution Architecture -->
-        <div class="slide" style="background: linear-gradient(135deg, #232526 0%, #414345 100%);">
+        <div class="slide">
             <div class="slide-content">
                 <h2>Intelligent Automation Architecture</h2>
                 <div class="workflow-diagram">
@@ -496,7 +569,7 @@
         </div>
 
         <!-- Slide 4: N8N Practical Workflows -->
-        <div class="slide" style="background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);">
+        <div class="slide">
             <div class="slide-content">
                 <h2>N8N Workflows for GAP</h2>
                 <div class="grid-2">
@@ -586,14 +659,14 @@ Get changed files
         </div>
 
         <!-- Slide 5: Claude AI Use Cases -->
-        <div class="slide" style="background: linear-gradient(135deg, #232526 0%, #414345 100%);">
+        <div class="slide">
             <div class="slide-content">
                 <h2>Claude AI: Real Use Cases for Our Stack</h2>
                 <div class="grid-2">
                     <div>
                         <div class="card">
                             <h3>🔍 1. Intelligent Log Analysis</h3>
-                            <p style="margin-bottom: 15px; color: #ccc;">
+                            <p style="margin-bottom: 15px; color: #666;">
                                 "Claude, analyze these Java logs and identify the iBatis issue"
                             </p>
                             <div class="benefit-item">
@@ -608,7 +681,7 @@ Get changed files
                         </div>
                         <div class="card" style="margin-top: 20px;">
                             <h3>📚 2. Runbook Generation</h3>
-                            <p style="margin-bottom: 15px; color: #ccc;">
+                            <p style="margin-bottom: 15px; color: #666;">
                                 "Claude, create runbook for Oracle connection pool issues"
                             </p>
                             <div class="benefit-item">
@@ -619,7 +692,7 @@ Get changed files
                     <div>
                         <div class="card">
                             <h3>🐛 3. Assisted Debugging</h3>
-                            <p style="margin-bottom: 15px; color: #ccc;">
+                            <p style="margin-bottom: 15px; color: #666;">
                                 Developer converses with Claude during troubleshooting
                             </p>
                             <div class="code-block">
@@ -643,7 +716,7 @@ Claude: "Here's the updated config..."
                         </div>
                         <div class="card" style="margin-top: 20px;">
                             <h3>📖 4. Pattern Recognition</h3>
-                            <p style="margin-bottom: 15px; color: #ccc;">
+                            <p style="margin-bottom: 15px; color: #666;">
                                 "Analyze our 14 recent incidents - what are the patterns?"
                             </p>
                             <div class="benefit-item">
@@ -657,7 +730,7 @@ Claude: "Here's the updated config..."
         </div>
 
         <!-- Slide 6: Smart Notifications -->
-        <div class="slide" style="background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);">
+        <div class="slide">
             <div class="slide-content">
                 <h2>Smart Notification System</h2>
                 <div class="comparison-box">
@@ -673,7 +746,7 @@ Claude: "Here's the updated config..."
                     </div>
                     <div class="comparison-arrow">→</div>
                     <div class="comparison-side after">
-                        <h3 style="color: #57ff57; margin-bottom: 20px;">✅ With N8N + Claude</h3>
+                        <h3 style="color: #FF6200; margin-bottom: 20px;">✅ With N8N + Claude</h3>
                         <ul style="list-style: none;">
                             <li style="margin-bottom: 10px;">📱 WhatsApp instant to on-call dev</li>
                             <li style="margin-bottom: 10px;">⚡ Notification in &lt;30 seconds</li>
@@ -687,7 +760,7 @@ Claude: "Here's the updated config..."
                 <div class="grid-2" style="margin-top: 40px;">
                     <div class="card">
                         <h3>📱 WhatsApp Message - Real Example</h3>
-                        <div style="background: #128C7E; padding: 20px; border-radius: 10px; margin-top: 15px; font-family: sans-serif;">
+                        <div class="whatsapp-message">
                             <div style="font-weight: bold; margin-bottom: 15px;">⚠️ P2 INCIDENT - GAP Production</div>
                             <div style="margin-bottom: 10px;"><strong>Time:</strong> 14:32:15</div>
                             <div style="margin-bottom: 10px;"><strong>System:</strong> PRM Payment Service (Java 8)</div>
@@ -722,7 +795,7 @@ Claude: "Here's the updated config..."
                     
                     <div class="card">
                         <h3>💬 Teams Message - Example</h3>
-                        <div style="background: #464EB8; padding: 20px; border-radius: 10px; margin-top: 15px;">
+                        <div class="teams-message">
                             <div style="font-weight: bold; margin-bottom: 15px; display: flex; align-items: center;">
                                 <span style="margin-right: 10px;">🔔</span> 
                                 <span>GAP Incident Alert</span>
@@ -752,7 +825,7 @@ Claude: "Here's the updated config..."
         </div>
 
         <!-- Slide 7: Impact on 4-Developer Team -->
-        <div class="slide" style="background: linear-gradient(135deg, #232526 0%, #414345 100%);">
+        <div class="slide">
             <div class="slide-content">
                 <h2>Impact for 4-Developer Team</h2>
                 
@@ -813,16 +886,16 @@ Claude: "Here's the updated config..."
                             <div>🤝 Meetings/others: <strong>4h (10%)</strong></div>
                         </div>
                         <div>
-                            <h4 style="color: #57ff57; margin-bottom: 15px;">With Claude + N8N (per dev/week)</h4>
+                            <h4 style="color: #FF6200; margin-bottom: 15px;">With Claude + N8N (per dev/week)</h4>
                             <div style="margin-bottom: 10px;">🐛 Incident resolution: <strong>3h (7.5%)</strong></div>
                             <div style="margin-bottom: 10px;">💻 Development: <strong>28h (70%)</strong></div>
                             <div style="margin-bottom: 10px;">📝 Documentation: <strong>5h (12.5%)</strong></div>
                             <div>🤝 Meetings/others: <strong>4h (10%)</strong></div>
                         </div>
                     </div>
-                    <div style="margin-top: 30px; padding: 20px; background: rgba(87, 255, 87, 0.2); border-radius: 10px;">
-                        <strong style="color: #57ff57; font-size: 1.3em;">Net gain: +5h productive development per dev/week = +20h/week for the team!</strong>
-                        <div style="margin-top: 10px; color: #ccc;">Plus: Better incident prevention means fewer interruptions to flow state</div>
+                    <div style="margin-top: 30px; padding: 20px; background: rgba(255, 98, 0, 0.15); border-radius: 10px; border: 2px solid #FF6200;">
+                        <strong style="color: #FF6200; font-size: 1.3em;">Net gain: +5h productive development per dev/week = +20h/week for the team!</strong>
+                        <div style="margin-top: 10px; color: #666;">Plus: Better incident prevention means fewer interruptions to flow state</div>
                     </div>
                 </div>
             </div>
@@ -830,11 +903,11 @@ Claude: "Here's the updated config..."
         </div>
 
         <!-- Slide 8: Complete Incident Workflow -->
-        <div class="slide" style="background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);">
+        <div class="slide">
             <div class="slide-content">
                 <h2>Real Workflow: P2 Incident Resolution</h2>
                 <div class="workflow-diagram">
-                    <div style="text-align: center; margin-bottom: 30px; font-size: 1.2em; color: #f093fb;">
+                    <div style="text-align: center; margin-bottom: 30px; font-size: 1.2em; color: #FF6200;">
                         ⏱️ Timeline: 0min → 15min (vs 45-60min current avg)
                     </div>
                     
@@ -916,7 +989,7 @@ Claude: "Here's the updated config..."
                     <div class="workflow-step">
                         <div class="icon">✅<br><small>+15min</small></div>
                         <div class="content">
-                            <h4>Automatic closure &amp; learning</h4>
+                            <h4>Automatic closure & learning</h4>
                             <p>• Claude generates post-mortem with SQL statements<br>
                                • N8N updates ServiceNow (resolved)<br>
                                • Documentation sent to Teams<br>
@@ -926,16 +999,16 @@ Claude: "Here's the updated config..."
                     </div>
                 </div>
                 
-                <div style="margin-top: 30px; text-align: center; padding: 30px; background: rgba(87, 255, 87, 0.15); border-radius: 15px; border: 2px solid rgba(87, 255, 87, 0.3);">
-                    <div style="font-size: 2em; margin-bottom: 15px;">⚡ 15 minutes vs 45-60 minutes</div>
-                    <div style="font-size: 1.2em; color: #57ff57;">67% reduction in resolution time + prevented potential P1 escalation!</div>
+                <div style="margin-top: 30px; text-align: center; padding: 30px; background: rgba(255, 98, 0, 0.1); border-radius: 15px; border: 3px solid #FF6200;">
+                    <div style="font-size: 2em; margin-bottom: 15px; color: #FF6200;">⚡ 15 minutes vs 45-60 minutes</div>
+                    <div style="font-size: 1.2em; color: #FF6200;">67% reduction in resolution time + prevented potential P1 escalation!</div>
                 </div>
             </div>
             <div class="slide-number">8</div>
         </div>
 
         <!-- Slide 9: Implementation -->
-        <div class="slide" style="background: linear-gradient(135deg, #232526 0%, #414345 100%);">
+        <div class="slide">
             <div class="slide-content">
                 <h2>Implementation Plan</h2>
                 
@@ -994,19 +1067,19 @@ Claude: "Here's the updated config..."
                     <h3 style="margin-bottom: 20px;">⚙️ Technical Requirements</h3>
                     <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; text-align: left;">
                         <div>
-                            <strong style="color: #f093fb;">N8N Hosting</strong><br>
+                            <strong style="color: #FF6200;">N8N Hosting</strong><br>
                             <small>Azure Container Instance<br>
                             2 vCPU, 4GB RAM<br>
                             ~$70/month</small>
                         </div>
                         <div>
-                            <strong style="color: #f093fb;">WhatsApp Business</strong><br>
+                            <strong style="color: #FF6200;">WhatsApp Business</strong><br>
                             <small>Meta Business API<br>
                             1 verified number<br>
                             ~$0 (1000 msgs/month free)</small>
                         </div>
                         <div>
-                            <strong style="color: #f093fb;">Claude API</strong><br>
+                            <strong style="color: #FF6200;">Claude API</strong><br>
                             <small>Anthropic Claude Sonnet<br>
                             Pay-as-you-go<br>
                             ~$200/month estimated</small>
@@ -1014,7 +1087,7 @@ Claude: "Here's the updated config..."
                     </div>
                 </div>
                 
-                <div class="benefit-item" style="margin-top: 30px; text-align: center; background: rgba(240, 147, 251, 0.2); border-color: #f093fb;">
+                <div class="benefit-item" style="margin-top: 30px; text-align: center; background: rgba(255, 98, 0, 0.1); border-color: #FF6200;">
                     <strong>Team Effort:</strong>
                     1 dedicated dev for 2 weeks (setup) + 10% capacity (maintenance)
                 </div>
@@ -1023,13 +1096,13 @@ Claude: "Here's the updated config..."
         </div>
 
         <!-- Slide 10: Additional Benefits -->
-        <div class="slide" style="background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);">
+        <div class="slide">
             <div class="slide-content">
                 <h2>Benefits Beyond Incident Response</h2>
                 
                 <div class="grid-2">
                     <div class="card">
-                        <h3>🎓 1. Knowledge &amp; Prevention</h3>
+                        <h3>🎓 1. Knowledge & Prevention</h3>
                         <div class="benefit-item">
                             <strong>Pattern Analysis</strong>
                             Claude analyzes our 14 incidents: "60% Oracle-related. Suggest: quarterly DB health reviews, index optimization, tablespace monitoring"
@@ -1079,7 +1152,7 @@ Claude: "Here's the updated config..."
                     </div>
                     
                     <div class="card">
-                        <h3>🔐 4. Compliance &amp; Audit</h3>
+                        <h3>🔐 4. Compliance & Audit</h3>
                         <div class="benefit-item">
                             <strong>Complete Audit Trail</strong>
                             Every incident documented with timeline, actions, and resolution
@@ -1098,9 +1171,9 @@ Claude: "Here's the updated config..."
                 <div class="highlight-box" style="margin-top: 30px;">
                     <h3 style="margin-bottom: 20px;">💡 Our Competitive Edge</h3>
                     <p style="font-size: 1.2em; line-height: 1.8;">
-                        We already have <strong style="color: #57ff57;">zero P1 incidents</strong> - great stability!<br>
-                        With Claude + N8N, we'll <strong style="color: #f093fb;">reduce total incidents by 60%</strong>,<br>
-                        resolve issues <strong style="color: #f5576c;">3x faster</strong>, and have <strong style="color: #ffd700;">20h/week more</strong> for feature development.
+                        We already have <strong style="color: #FF6200;">zero P1 incidents</strong> - great stability!<br>
+                        With Claude + N8N, we'll <strong style="color: #FF6200;">reduce total incidents by 60%</strong>,<br>
+                        resolve issues <strong style="color: #FF6200;">3x faster</strong>, and have <strong style="color: #FF6200;">20h/week more</strong> for feature development.
                     </p>
                 </div>
             </div>
@@ -1108,20 +1181,20 @@ Claude: "Here's the updated config..."
         </div>
 
         <!-- Slide 11: Investment & Costs -->
-        <div class="slide" style="background: linear-gradient(135deg, #232526 0%, #414345 100%);">
+        <div class="slide">
             <div class="slide-content">
                 <h2>💰 Investment Details</h2>
                 
                 <div class="cost-box">
                     <h4>Monthly Costs - 4 Developer Team</h4>
                     
-                    <div class="cost-item" style="background: rgba(240, 147, 251, 0.1); margin-bottom: 15px; padding: 15px; border-radius: 8px;">
-                        <strong style="color: #f093fb; font-size: 1.1em;">New Tools for Session 2</strong>
+                    <div class="cost-item" style="background: rgba(255, 98, 0, 0.1); margin-bottom: 15px; padding: 15px; border-radius: 8px;">
+                        <strong style="color: #FF6200; font-size: 1.1em;">New Tools for Session 2</strong>
                     </div>
                     
                     <div class="cost-item">
                         <span>Claude API (Sonnet 4.5)</span>
-                        <span style="color: #fbbf24;">~$200/month</span>
+                        <span style="color: #FF6200;">~$200/month</span>
                     </div>
                     <div class="cost-item">
                         <span style="font-size: 0.9em; color: #888; padding-left: 20px;">└ Based on ~5 incidents/month + daily analysis + code review</span>
@@ -1129,7 +1202,7 @@ Claude: "Here's the updated config..."
                     
                     <div class="cost-item">
                         <span>N8N Hosting (Azure Container)</span>
-                        <span style="color: #fbbf24;">$70/month</span>
+                        <span style="color: #FF6200;">$70/month</span>
                     </div>
                     <div class="cost-item">
                         <span style="font-size: 0.9em; color: #888; padding-left: 20px;">└ 2 vCPU, 4GB RAM, high availability</span>
@@ -1137,20 +1210,20 @@ Claude: "Here's the updated config..."
                     
                     <div class="cost-item">
                         <span>WhatsApp Business API</span>
-                        <span style="color: #4ade80;">$0/month</span>
+                        <span style="color: #2C2C2C;">$0/month</span>
                     </div>
                     <div class="cost-item">
                         <span style="font-size: 0.9em; color: #888; padding-left: 20px;">└ ~50 messages/month (well within free tier)</span>
                     </div>
                     
-                    <div class="cost-item" style="border-top: 3px solid rgba(240, 147, 251, 0.8); padding-top: 20px; margin-top: 20px; background: rgba(240, 147, 251, 0.15); border-radius: 8px; padding: 20px;">
+                    <div class="cost-item" style="border-top: 3px solid #FF6200; padding-top: 20px; margin-top: 20px; background: rgba(255, 98, 0, 0.15); border-radius: 8px; padding: 20px;">
                         <span style="font-size: 1.3em;"><strong>TOTAL NEW INVESTMENT</strong></span>
-                        <span style="color: #f093fb; font-weight: bold; font-size: 1.5em;">$270/month</span>
+                        <span style="color: #FF6200; font-weight: bold; font-size: 1.5em;">$270/month</span>
                     </div>
                 </div>
                 
-                <div class="cost-box" style="margin-top: 30px; background: linear-gradient(135deg, rgba(102, 126, 234, 0.15) 0%, rgba(118, 75, 162, 0.15) 100%); border-color: rgba(102, 126, 234, 0.5);">
-                    <h4 style="color: #667eea;">📊 Implementation Effort</h4>
+                <div class="cost-box" style="margin-top: 30px;">
+                    <h4>📊 Implementation Effort</h4>
                     
                     <div class="cost-item">
                         <span>Initial Setup (one-time)</span>
@@ -1168,13 +1241,13 @@ Claude: "Here's the updated config..."
                     </div>
                     
                     <div class="cost-item">
-                        <span>Team Training &amp; Documentation</span>
+                        <span>Team Training & Documentation</span>
                         <span>4-8 hours total</span>
                     </div>
                     
-                    <div class="cost-item" style="margin-top: 20px; padding-top: 20px; border-top: 2px solid rgba(102, 126, 234, 0.3);">
+                    <div class="cost-item" style="margin-top: 20px; padding-top: 20px; border-top: 2px solid rgba(255, 98, 0, 0.3);">
                         <span><strong>Total Implementation Time</strong></span>
-                        <span style="color: #667eea; font-weight: bold;">~90 hours</span>
+                        <span style="color: #FF6200; font-weight: bold;">~90 hours</span>
                     </div>
                 </div>
                 
@@ -1182,20 +1255,20 @@ Claude: "Here's the updated config..."
                     <h3 style="margin-bottom: 20px;">🎯 Key Metrics - Our Reality</h3>
                     <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; text-align: center;">
                         <div>
-                            <div style="font-size: 2.5em; color: #f093fb;">$270</div>
-                            <div style="margin-top: 10px; color: #ccc;">Monthly Investment</div>
+                            <div style="font-size: 2.5em; color: #FF6200;">$270</div>
+                            <div style="margin-top: 10px; color: #666;">Monthly Investment</div>
                         </div>
                         <div>
-                            <div style="font-size: 2.5em; color: #57ff57;">5→2</div>
-                            <div style="margin-top: 10px; color: #ccc;">Incidents/Month</div>
+                            <div style="font-size: 2.5em; color: #FF6200;">5→2</div>
+                            <div style="margin-top: 10px; color: #666;">Incidents/Month</div>
                         </div>
                         <div>
-                            <div style="font-size: 2.5em; color: #ffd700;">45→15min</div>
-                            <div style="margin-top: 10px; color: #ccc;">Avg Resolution</div>
+                            <div style="font-size: 2.5em; color: #FF6200;">45→15min</div>
+                            <div style="margin-top: 10px; color: #666;">Avg Resolution</div>
                         </div>
                         <div>
-                            <div style="font-size: 2.5em; color: #f5576c;">20h</div>
-                            <div style="margin-top: 10px; color: #ccc;">Saved/Week</div>
+                            <div style="font-size: 2.5em; color: #FF6200;">20h</div>
+                            <div style="margin-top: 10px; color: #666;">Saved/Week</div>
                         </div>
                     </div>
                 </div>
@@ -1204,13 +1277,13 @@ Claude: "Here's the updated config..."
         </div>
 
         <!-- Slide 12: Useful Links -->
-        <div class="slide" style="background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);">
+        <div class="slide">
             <div class="slide-content">
                 <h2>🔗 Useful Links and Resources</h2>
                 
                 <div class="grid-2">
                     <div class="links-section">
-                        <h3 style="color: #f093fb; margin-bottom: 20px;">🤖 Claude AI</h3>
+                        <h3 style="color: #FF6200; margin-bottom: 20px;">🤖 Claude AI</h3>
                         <a href="https://www.anthropic.com/api" target="_blank">→ Claude API Documentation</a>
                         <a href="https://www.anthropic.com/pricing#anthropic-api" target="_blank">→ Claude API Pricing</a>
                         <a href="https://docs.anthropic.com/claude/docs" target="_blank">→ Integration Guides</a>
@@ -1219,26 +1292,26 @@ Claude: "Here's the updated config..."
                     </div>
                     
                     <div class="links-section">
-                        <h3 style="color: #f093fb; margin-bottom: 20px;">⚙️ N8N Automation</h3>
+                        <h3 style="color: #FF6200; margin-bottom: 20px;">⚙️ N8N Automation</h3>
                         <a href="https://n8n.io/" target="_blank">→ N8N Official Website</a>
                         <a href="https://docs.n8n.io/" target="_blank">→ N8N Documentation</a>
                         <a href="https://n8n.io/pricing" target="_blank">→ N8N Pricing (Self-hosted = Free)</a>
                         <a href="https://n8n.io/integrations" target="_blank">→ 400+ Integrations List</a>
-                        <a href="https://community.n8n.io/" target="_blank">→ N8N Community &amp; Templates</a>
+                        <a href="https://community.n8n.io/" target="_blank">→ N8N Community & Templates</a>
                     </div>
                 </div>
                 
                 <div class="grid-2" style="margin-top: 30px;">
                     <div class="links-section">
-                        <h3 style="color: #f093fb; margin-bottom: 20px;">📱 WhatsApp Business</h3>
+                        <h3 style="color: #FF6200; margin-bottom: 20px;">📱 WhatsApp Business</h3>
                         <a href="https://business.whatsapp.com/" target="_blank">→ WhatsApp Business Platform</a>
                         <a href="https://developers.facebook.com/docs/whatsapp" target="_blank">→ WhatsApp Business API Docs</a>
-                        <a href="https://developers.facebook.com/docs/whatsapp/pricing" target="_blank">→ Pricing &amp; Free Tier Details</a>
-                        <a href="https://business.whatsapp.com/products/business-platform" target="_blank">→ Use Cases &amp; Setup Guide</a>
+                        <a href="https://developers.facebook.com/docs/whatsapp/pricing" target="_blank">→ Pricing & Free Tier Details</a>
+                        <a href="https://business.whatsapp.com/products/business-platform" target="_blank">→ Use Cases & Setup Guide</a>
                     </div>
                     
                     <div class="links-section">
-                        <h3 style="color: #f093fb; margin-bottom: 20px;">☁️ Azure Hosting</h3>
+                        <h3 style="color: #FF6200; margin-bottom: 20px;">☁️ Azure Hosting</h3>
                         <a href="https://azure.microsoft.com/en-us/pricing/details/container-instances/" target="_blank">→ Azure Container Instances Pricing</a>
                         <a href="https://learn.microsoft.com/en-us/azure/container-instances/" target="_blank">→ Container Instances Docs</a>
                         <a href="https://azure.microsoft.com/en-us/pricing/calculator/" target="_blank">→ Azure Pricing Calculator</a>
@@ -1246,7 +1319,7 @@ Claude: "Here's the updated config..."
                 </div>
                 
                 <div class="links-section" style="margin-top: 30px;">
-                    <h3 style="color: #f093fb; margin-bottom: 20px;">📚 Best Practices &amp; Guides</h3>
+                    <h3 style="color: #FF6200; margin-bottom: 20px;">📚 Best Practices & Guides</h3>
                     <div class="grid-2">
                         <div>
                             <a href="https://www.anthropic.com/research" target="_blank">→ Anthropic Research Papers</a>
@@ -1277,75 +1350,75 @@ Claude: "Here's the updated config..."
         </div>
 
         <!-- Slide 13: Next Steps -->
-        <div class="slide" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);">
+        <div class="slide title-slide">
             <div class="slide-content" style="text-align: center;">
-                <h2 style="margin-bottom: 50px;">🚀 Next Steps</h2>
+                <h2 style="margin-bottom: 50px; color: #FFFFFF;">🚀 Next Steps</h2>
                 
                 <div class="grid-3">
-                    <div class="card">
+                    <div class="card" style="background: rgba(255,255,255,0.95); border-color: #FFFFFF;">
                         <h3 style="font-size: 3em; margin-bottom: 20px;">1️⃣</h3>
-                        <h4 style="color: #f093fb; margin-bottom: 15px;">Approval &amp; Budget</h4>
-                        <p>Validate $270/month investment and allocate 1 dev for 2 weeks for setup</p>
+                        <h4 style="color: #FF6200; margin-bottom: 15px;">Approval & Budget</h4>
+                        <p style="color: #2C2C2C;">Validate $270/month investment and allocate 1 dev for 2 weeks for setup</p>
                     </div>
                     
-                    <div class="card">
+                    <div class="card" style="background: rgba(255,255,255,0.95); border-color: #FFFFFF;">
                         <h3 style="font-size: 3em; margin-bottom: 20px;">2️⃣</h3>
-                        <h4 style="color: #f093fb; margin-bottom: 15px;">POC (Week 1-2)</h4>
-                        <p>Deploy N8N, Claude API, train on our 14 incidents, first workflow working</p>
+                        <h4 style="color: #FF6200; margin-bottom: 15px;">POC (Week 1-2)</h4>
+                        <p style="color: #2C2C2C;">Deploy N8N, Claude API, train on our 14 incidents, first workflow working</p>
                     </div>
                     
-                    <div class="card">
+                    <div class="card" style="background: rgba(255,255,255,0.95); border-color: #FFFFFF;">
                         <h3 style="font-size: 3em; margin-bottom: 20px;">3️⃣</h3>
-                        <h4 style="color: #f093fb; margin-bottom: 15px;">Gradual Rollout</h4>
-                        <p>Weeks 3-8: expand workflows, monitor results, optimize based on real incident patterns</p>
+                        <h4 style="color: #FF6200; margin-bottom: 15px;">Gradual Rollout</h4>
+                        <p style="color: #2C2C2C;">Weeks 3-8: expand workflows, monitor results, optimize based on real incident patterns</p>
                     </div>
                 </div>
                 
-                <div class="highlight-box" style="margin-top: 60px;">
-                    <h3 style="margin-bottom: 30px;">🎯 Success Vision in 3 Months</h3>
+                <div style="margin-top: 60px; padding: 40px; background: rgba(255,255,255,0.1); border-radius: 20px; border: 3px solid #FFFFFF;">
+                    <h3 style="color: #FFFFFF; margin-bottom: 30px;">🎯 Success Vision in 3 Months</h3>
                     <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; text-align: center;">
                         <div>
                             <div style="font-size: 3em; margin-bottom: 15px;">📉</div>
-                            <div style="font-size: 1.3em; color: #57ff57; font-weight: bold;">5→2</div>
-                            <div style="margin-top: 10px;">Incidents/Month</div>
+                            <div style="font-size: 1.3em; color: #FFFFFF; font-weight: bold;">5→2</div>
+                            <div style="margin-top: 10px; color: #FFFFFF;">Incidents/Month</div>
                         </div>
                         <div>
                             <div style="font-size: 3em; margin-bottom: 15px;">⚡</div>
-                            <div style="font-size: 1.3em; color: #57ff57; font-weight: bold;">-67%</div>
-                            <div style="margin-top: 10px;">Resolution Time</div>
+                            <div style="font-size: 1.3em; color: #FFFFFF; font-weight: bold;">-67%</div>
+                            <div style="margin-top: 10px; color: #FFFFFF;">Resolution Time</div>
                         </div>
                         <div>
                             <div style="font-size: 3em; margin-bottom: 15px;">🛡️</div>
-                            <div style="font-size: 1.3em; color: #57ff57; font-weight: bold;">0 P1</div>
-                            <div style="margin-top: 10px;">Maintain Excellence</div>
+                            <div style="font-size: 1.3em; color: #FFFFFF; font-weight: bold;">0 P1</div>
+                            <div style="margin-top: 10px; color: #FFFFFF;">Maintain Excellence</div>
                         </div>
                         <div>
                             <div style="font-size: 3em; margin-bottom: 15px;">🚀</div>
-                            <div style="font-size: 1.3em; color: #ffd700; font-weight: bold;">+50%</div>
-                            <div style="margin-top: 10px;">Dev Time</div>
+                            <div style="font-size: 1.3em; color: #FFFFFF; font-weight: bold;">+50%</div>
+                            <div style="margin-top: 10px; color: #FFFFFF;">Dev Time</div>
                         </div>
                     </div>
                 </div>
                 
-                <div style="margin-top: 60px; padding: 40px; background: rgba(0,0,0,0.3); border-radius: 20px; border: 2px solid rgba(255, 215, 0, 0.5);">
-                    <h3 style="color: #ffd700; margin-bottom: 20px; font-size: 2em;">✨ From Good to Excellent</h3>
-                    <p style="font-size: 1.4em; line-height: 1.9;">
-                        We already have <strong style="color: #57ff57;">zero P1 incidents</strong> - that's great stability!<br>
-                        Now let's <strong style="color: #f093fb;">reduce P2/P3 by 60%</strong>,<br>
-                        <strong style="color: #f5576c;">resolve 3x faster</strong>,<br>
-                        and <strong style="color: #ffd700;">spend more time on innovation</strong> instead of firefighting.
+                <div style="margin-top: 60px; padding: 40px; background: rgba(255,255,255,0.15); border-radius: 20px; border: 3px solid #FFFFFF;">
+                    <h3 style="color: #FFFFFF; margin-bottom: 20px; font-size: 2em;">✨ From Good to Excellent</h3>
+                    <p style="font-size: 1.4em; line-height: 1.9; color: #FFFFFF;">
+                        We already have <strong>zero P1 incidents</strong> - that's great stability!<br>
+                        Now let's <strong>reduce P2/P3 by 60%</strong>,<br>
+                        <strong>resolve 3x faster</strong>,<br>
+                        and <strong>spend more time on innovation</strong> instead of firefighting.
                     </p>
                 </div>
                 
-                <div style="margin-top: 60px; font-size: 2em; color: #fff;">
+                <div style="margin-top: 60px; font-size: 2em; color: #FFFFFF;">
                     Let's build the future together! 🚀
                 </div>
                 
-                <div style="margin-top: 30px; font-size: 1.2em; color: #ccc;">
+                <div style="margin-top: 30px; font-size: 1.2em; color: #FFFFFF;">
                     Questions?
                 </div>
             </div>
-            <div class="slide-number">13</div>
+            <div class="slide-number" style="color: #FFFFFF;">13</div>
         </div>
 
     </div>
@@ -1375,6 +1448,5 @@ Claude: "Here's the updated config..."
             }
         });
     </script>
-
-
-</body></html>
+</body>
+</html>
