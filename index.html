@@ -1,210 +1,909 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GAP Migration - ING Bank Presentation</title>
-<style>
-  *{margin:0;padding:0;box-sizing:border-box;}
-  body{
-    font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
-    background:#ffffff;
-    color:#333;
-    overflow-x:hidden;
-  }
-  .slide-container{
-    width:100vw;
-    height:100vh;
-    overflow-y:scroll;
-    scroll-snap-type:y mandatory;
-    scroll-behavior:smooth;
-  }
-  .slide{
-    width:100%;
-    min-height:100vh;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    padding:60px;
-    scroll-snap-align:start;
-    position:relative;
-    background:#f5f5f5;
-  }
-  .slide:nth-child(even){background:#ffffff;}
-  .slide-content{
-    max-width:1200px;
-    width:100%;
-    z-index:1;
-    position:relative;
-    padding-top:80px;
-  }
-  header{
-    position:absolute;
-    top:20px;
-    left:40px;
-    display:flex;
-    align-items:center;
-    gap:10px;
-  }
-  header svg{
-    height:45px;
-  }
-  h1{
-    font-size:3em;
-    color:#FF6200;
-    text-align:center;
-    margin-bottom:10px;
-  }
-  h2{
-    font-size:2em;
-    color:#003399;
-    margin-bottom:20px;
-  }
-  h3{
-    font-size:1.4em;
-    color:#FF6200;
-    margin-bottom:10px;
-  }
-  .subtitle{
-    text-align:center;
-    font-size:1.2em;
-    color:#666;
-    margin-bottom:40px;
-  }
-  .grid-2{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:30px;
-  }
-  .grid-3{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:20px;
-  }
-  .card{
-    background:#fff;
-    border:1px solid #ddd;
-    border-radius:10px;
-    padding:25px;
-    box-shadow:0 2px 10px rgba(0,0,0,0.05);
-    transition:transform .3s ease,box-shadow .3s ease;
-  }
-  .card:hover{
-    transform:translateY(-4px);
-    box-shadow:0 8px 18px rgba(255,98,0,0.15);
-  }
-  .tech-badge{
-    display:inline-block;
-    margin:4px;
-    background:#fff4ec;
-    color:#003399;
-    border:1px solid #FF6200;
-    border-radius:20px;
-    padding:6px 16px;
-    font-weight:500;
-  }
-  .metric-box{
-    background:#fff;
-    border:2px solid #FF6200;
-    border-radius:10px;
-    text-align:center;
-    padding:20px;
-  }
-  .metric-box .number{
-    font-size:2em;
-    font-weight:bold;
-    color:#FF6200;
-  }
-  .metric-box .label{
-    color:#333;
-  }
-  .benefit-item{
-    background:#fff4ec;
-    border-left:4px solid #FF6200;
-    padding:10px 15px;
-    margin-bottom:10px;
-    border-radius:5px;
-  }
-  .benefit-item strong{color:#003399;}
-  .slide-number{
-    position:absolute;
-    bottom:20px;
-    right:30px;
-    font-size:13px;
-    color:#999;
-  }
-  @media(max-width:768px){
-    .grid-2,.grid-3{grid-template-columns:1fr;}
-    h1{font-size:2.2em;}
-  }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GAP Migration - Current Stack Improvements</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+       
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #1a1a1a;
+            color: #fff;
+            overflow-x: hidden;
+        }
+       
+        .slide-container {
+            width: 100vw;
+            height: 100vh;
+            overflow-y: scroll;
+            scroll-snap-type: y mandatory;
+            scroll-behavior: smooth;
+        }
+       
+        .slide {
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 60px;
+            scroll-snap-align: start;
+            position: relative;
+        }
+       
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            opacity: 0.1;
+            z-index: 0;
+        }
+       
+        .slide-content {
+            max-width: 1200px;
+            width: 100%;
+            z-index: 1;
+        }
+       
+        .slide-number {
+            position: absolute;
+            bottom: 30px;
+            right: 40px;
+            font-size: 14px;
+            color: #888;
+        }
+       
+        h1 {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+       
+        h2 {
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            color: #667eea;
+        }
+       
+        h3 {
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            color: #764ba2;
+        }
+       
+        .subtitle {
+            font-size: 1.5em;
+            color: #aaa;
+            margin-bottom: 40px;
+        }
+       
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 30px;
+        }
+       
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            margin-top: 30px;
+        }
+       
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+       
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        }
+       
+        .card h3 {
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+       
+        .card ul {
+            list-style: none;
+            margin-top: 15px;
+        }
+       
+        .card li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+            line-height: 1.6;
+        }
+       
+        .card li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+        }
+       
+        .metric-box {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.2) 0%, rgba(118, 75, 162, 0.2) 100%);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            border: 2px solid rgba(102, 126, 234, 0.3);
+        }
+       
+        .metric-box .number {
+            font-size: 3em;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+       
+        .metric-box .label {
+            font-size: 1.1em;
+            color: #ccc;
+        }
+       
+        .timeline {
+            position: relative;
+            padding-left: 40px;
+            margin-top: 30px;
+        }
+       
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 10px;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
+        }
+       
+        .timeline-item {
+            position: relative;
+            margin-bottom: 30px;
+            padding-left: 30px;
+        }
+       
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -32px;
+            top: 5px;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: #667eea;
+            border: 3px solid #1a1a1a;
+        }
+       
+        .timeline-item h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 1.3em;
+        }
+       
+        .benefit-list {
+            margin-top: 20px;
+        }
+       
+        .benefit-item {
+            background: rgba(102, 126, 234, 0.1);
+            border-left: 4px solid #667eea;
+            padding: 15px 20px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+        }
+       
+        .benefit-item strong {
+            color: #667eea;
+            display: block;
+            margin-bottom: 5px;
+        }
+       
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+        }
+       
+        .tech-badge {
+            background: rgba(102, 126, 234, 0.2);
+            padding: 10px 20px;
+            border-radius: 20px;
+            border: 1px solid #667eea;
+            font-weight: 500;
+        }
+       
+        .links-section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 30px;
+        }
+       
+        .links-section a {
+            color: #667eea;
+            text-decoration: none;
+            display: block;
+            padding: 10px 0;
+            transition: color 0.3s;
+        }
+       
+        .links-section a:hover {
+            color: #764ba2;
+        }
+       
+        .roi-box {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.15) 0%, rgba(118, 75, 162, 0.15) 100%);
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 20px;
+            border: 2px solid rgba(102, 126, 234, 0.3);
+        }
+       
+        .roi-box h4 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+       
+        .roi-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+       
+        .roi-item:last-child {
+            border-bottom: none;
+        }
+       
+        @media (max-width: 768px) {
+            .grid-2, .grid-3 {
+                grid-template-columns: 1fr;
+            }
+           
+            h1 {
+                font-size: 2.5em;
+            }
+           
+            h2 {
+                font-size: 2em;
+            }
+           
+            .slide {
+                padding: 30px 20px;
+            }
+        }
+    </style>
 </head>
 <body>
-<div class="slide-container">
-
-  <!-- Slide 1 -->
-  <div class="slide">
-    <header>
-      <!-- ING logo inline SVG -->
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 128">
-        <path fill="#FF6200" d="M65.6 45.8c-2.9-1.8-6.8-2.7-11.6-2.7-9.9 0-15.6 3.9-15.6 10.5 0 4.8 3 8.1 8.9 9.9l6.6 2.1c3.7 1.1 5.3 2.7 5.3 5 0 2.7-2.1 4.2-6.1 4.2-3.1 0-6.2-.7-9.3-2.3l-2.1 8.5c2.7 1.1 6.6 1.8 11.4 1.8 10.5 0 16.4-4.3 16.4-11.2 0-4.9-3.1-8.2-8.9-10l-6.1-2c-3.4-1.1-4.8-2.5-4.8-4.8 0-2.5 2-3.9 5.7-3.9 3 0 5.7.7 8.2 1.9l2-8zM93.2 44H83l-11.9 40.3h10l2-7.7h9.4l2 7.7h10.3L93.2 44zm-7.8 24 2.8-11.3 2.8 11.3h-5.6zM118.5 43.9c-7.6 0-12.6 4.5-12.6 11.4 0 4.8 2.2 8 6.9 10.1l4.9 2.1c2.8 1.1 4 2.4 4 4.2 0 2.2-1.7 3.5-4.8 3.5-3 0-5.5-.7-8.1-2.2l-1.8 7.7c2.6 1 5.9 1.7 9.4 1.7 8.8 0 14.1-4.3 14.1-11 0-4.8-2.5-8.3-7.6-10.5l-4.2-1.8c-3-1.3-4.4-2.7-4.4-4.6 0-2.2 1.7-3.5 4.6-3.5 2.4 0 4.7.6 6.8 1.5l1.7-7.6c-2.2-.7-5.2-1.2-8.9-1.2z"/>
-      </svg>
-    </header>
-    <div class="slide-content" style="text-align:center;">
-      <h1>GAP Migration</h1>
-      <p class="subtitle">Process Optimization with Current Stack</p>
-      <p>Improving quality, speed and resilience across development</p>
-      <div style="margin-top:30px;">
-        <span class="tech-badge">Java 8</span>
-        <span class="tech-badge">iBatis</span>
-        <span class="tech-badge">Azure DevOps</span>
-        <span class="tech-badge">Prometheus</span>
-        <span class="tech-badge">ServiceNow</span>
-        <span class="tech-badge">Copilot</span>
-      </div>
-    </div>
-    <div class="slide-number">1</div>
-  </div>
-
-  <!-- Slide 2 -->
-  <div class="slide">
-    <header>
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 128">
-        <path fill="#FF6200" d="M65.6 45.8c-2.9-1.8-6.8-2.7-11.6-2.7-9.9 0-15.6 3.9-15.6 10.5 0 4.8 3 8.1 8.9 9.9l6.6 2.1c3.7 1.1 5.3 2.7 5.3 5 0 2.7-2.1 4.2-6.1 4.2-3.1 0-6.2-.7-9.3-2.3l-2.1 8.5c2.7 1.1 6.6 1.8 11.4 1.8 10.5 0 16.4-4.3 16.4-11.2 0-4.9-3.1-8.2-8.9-10l-6.1-2c-3.4-1.1-4.8-2.5-4.8-4.8 0-2.5 2-3.9 5.7-3.9 3 0 5.7.7 8.2 1.9l2-8zM93.2 44H83l-11.9 40.3h10l2-7.7h9.4l2 7.7h10.3L93.2 44zm-7.8 24 2.8-11.3 2.8 11.3h-5.6zM118.5 43.9c-7.6 0-12.6 4.5-12.6 11.4 0 4.8 2.2 8 6.9 10.1l4.9 2.1c2.8 1.1 4 2.4 4 4.2 0 2.2-1.7 3.5-4.8 3.5-3 0-5.5-.7-8.1-2.2l-1.8 7.7c2.6 1 5.9 1.7 9.4 1.7 8.8 0 14.1-4.3 14.1-11 0-4.8-2.5-8.3-7.6-10.5l-4.2-1.8c-3-1.3-4.4-2.7-4.4-4.6 0-2.2 1.7-3.5 4.6-3.5 2.4 0 4.7.6 6.8 1.5l1.7-7.6c-2.2-.7-5.2-1.2-8.9-1.2z"/>
-      </svg>
-    </header>
-    <div class="slide-content">
-      <h2>Current Project Context</h2>
-      <div class="grid-2">
-        <div class="card">
-          <h3>Challenges</h3>
-          <ul>
-            <li>Documentum → GAP migration</li>
-            <li>Reactive incident management</li>
-            <li>Concentrated knowledge</li>
-            <li>Manual processes</li>
-          </ul>
+    <div class="slide-container">
+       
+        <!-- Slide 1: Title -->
+        <div class="slide" style="background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);">
+            <div class="slide-content" style="text-align: center;">
+                <h1>GAP Migration</h1>
+                <p class="subtitle">Process Optimization with Current Stack</p>
+                <div style="margin-top: 60px;">
+                    <p style="font-size: 1.2em; color: #ccc;">Improving Quality, Speed and Resilience</p>
+                    <p style="font-size: 1em; color: #999; margin-top: 20px;">Management Presentation | 2025</p>
+                </div>
+                <div class="tech-stack" style="justify-content: center; margin-top: 40px;">
+                    <span class="tech-badge">Java 8</span>
+                    <span class="tech-badge">iBatis</span>
+                    <span class="tech-badge">Azure DevOps</span>
+                    <span class="tech-badge">Prometheus</span>
+                    <span class="tech-badge">ServiceNow</span>
+                    <span class="tech-badge">Oracle DB</span>
+                    <span class="tech-badge">Copilot</span>
+                </div>
+            </div>
+            <div class="slide-number">1</div>
         </div>
-        <div class="card">
-          <h3>Team</h3>
-          <ul>
-            <li>4 Developers including Thiago 1</li>
-            <li>Legacy and modern Java stack</li>
-            <li>Multiple responsibilities</li>
-            <li>Pressure for fast deliveries</li>
-          </ul>
-        </div>
-      </div>
-      <div class="grid-3" style="margin-top:30px;">
-        <div class="metric-box"><div class="number">14</div><div class="label">Incidents (last 3 months)</div></div>
-        <div class="metric-box"><div class="number">0 P1</div><div class="label">Critical incidents</div></div>
-        <div class="metric-box"><div class="number">60%</div><div class="label">DB-related issues</div></div>
-      </div>
-    </div>
-    <div class="slide-number">2</div>
-  </div>
 
-</div>
+        <!-- Slide 2: Current Context -->
+        <div class="slide" style="background: linear-gradient(135deg, #2a5298 0%, #1e3c72 100%);">
+            <div class="slide-content">
+                <h2>Current Project Context</h2>
+                <div class="grid-2">
+                    <div class="card">
+                        <h3>🎯 Challenges</h3>
+                        <ul>
+                            <li>Documentum → GAP/GRP migration</li>
+                            <li>Multiple systems (PRM, PRMB, LOM)</li>
+                            <li>Reactive incident management</li>
+                            <li>Concentrated knowledge</li>
+                            <li>Manual processes</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h3>👥 Team</h3>
+                        <ul>
+                            <li>4 Developers</li>
+                            <li>Rotating on-call schedule</li>
+                            <li>Legacy and modern Java stack</li>
+                            <li>Multiple responsibilities</li>
+                            <li>Pressure for fast deliveries</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="grid-3" style="margin-top: 30px;">
+                    <div class="metric-box">
+                        <div class="number">~15</div>
+                        <div class="label">Incidents/month</div>
+                    </div>
+                    <div class="metric-box">
+                        <div class="number">2-4h</div>
+                        <div class="label">Average MTTR</div>
+                    </div>
+                    <div class="metric-box">
+                        <div class="number">60%</div>
+                        <div class="label">Time on incidents</div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number">2</div>
+        </div>
+
+        <!-- Slide 3: Quality Strategy -->
+        <div class="slide" style="background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);">
+            <div class="slide-content">
+                <h2>1. Improving Delivery Quality</h2>
+                <div class="grid-2">
+                    <div>
+                        <div class="card">
+                            <h3>Azure DevOps - Advanced CI/CD</h3>
+                            <ul>
+                                <li>Pipelines with quality gates</li>
+                                <li>Mandatory code review (2 approvers)</li>
+                                <li>Automated static analysis (SonarQube)</li>
+                                <li>Mandatory unit tests (>80% coverage)</li>
+                                <li>Stage deployments (DEV → QA → PROD)</li>
+                            </ul>
+                        </div>
+                        <div class="card" style="margin-top: 20px;">
+                            <h3>GitHub Copilot - Pair Programming</h3>
+                            <ul>
+                                <li>Unit test generation</li>
+                                <li>Automatic documentation</li>
+                                <li>Assisted refactoring</li>
+                                <li>AI code review</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="card">
+                            <h3>Eclipse + Tools</h3>
+                            <ul>
+                                <li>Plugins: Checkstyle, SpotBugs, PMD</li>
+                                <li>Standardized code templates</li>
+                                <li>Shared configurations in Git</li>
+                                <li>Snippets for GAP patterns</li>
+                            </ul>
+                        </div>
+                        <div class="benefit-list" style="margin-top: 20px;">
+                            <div class="benefit-item">
+                                <strong>Expected Result:</strong>
+                                40% reduction in production bugs within first 3 months
+                            </div>
+                            <div class="benefit-item">
+                                <strong>KPI:</strong>
+                                Defect Escape Rate < 5%
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number">3</div>
+        </div>
+
+        <!-- Slide 4: Speed -->
+        <div class="slide" style="background: linear-gradient(135deg, #2a5298 0%, #1e3c72 100%);">
+            <div class="slide-content">
+                <h2>2. Increasing Delivery Speed</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <h4>Azure DevOps Automation</h4>
+                        <p>Automated build & deploy in <15min</p>
+                        <ul style="margin-top: 10px; margin-left: 20px;">
+                            <li>Automatic triggers per branch</li>
+                            <li>1-click rollback</li>
+                            <li>Feature flags for gradual releases</li>
+                        </ul>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>Copilot for Productivity</h4>
+                        <p>+30% speed on boilerplate code</p>
+                        <ul style="margin-top: 10px; margin-left: 20px;">
+                            <li>DAO and iBatis query generation</li>
+                            <li>Test creation in seconds</li>
+                            <li>Automatic inline documentation</li>
+                        </ul>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>Templates and Scaffolding</h4>
+                        <p>New services in <2 hours</p>
+                        <ul style="margin-top: 10px; margin-left: 20px;">
+                            <li>Base project in Azure Repos</li>
+                            <li>Standard GAP/GRP structure</li>
+                            <li>Pre-configured settings</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="grid-3" style="margin-top: 30px;">
+                    <div class="metric-box">
+                        <div class="number">50%</div>
+                        <div class="label">↑ Deploy Speed</div>
+                    </div>
+                    <div class="metric-box">
+                        <div class="number">30%</div>
+                        <div class="label">↑ Coding Speed</div>
+                    </div>
+                    <div class="metric-box">
+                        <div class="number">3x</div>
+                        <div class="label">↑ Releases/Sprint</div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number">4</div>
+        </div>
+
+        <!-- Slide 5: Resilience -->
+        <div class="slide" style="background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);">
+            <div class="slide-content">
+                <h2>3. Increasing System Resilience</h2>
+                <div class="grid-2">
+                    <div class="card">
+                        <h3>📊 Prometheus + Slim Monitoring</h3>
+                        <ul>
+                            <li><strong>Custom metrics:</strong> GAP response times, error rate per endpoint</li>
+                            <li><strong>Proactive alerts:</strong> before users report</li>
+                            <li><strong>Dashboards per component:</strong> PRM, PRMB, LOM, GAP</li>
+                            <li><strong>SLA tracking:</strong> 99.9% availability</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h3>🛡️ Resilience Strategies</h3>
+                        <ul>
+                            <li><strong>Circuit Breaker:</strong> protect Oracle DB calls</li>
+                            <li><strong>Retry policies:</strong> GAP/GRP calls with backoff</li>
+                            <li><strong>Health checks:</strong> /health endpoints in all services</li>
+                            <li><strong>Graceful degradation:</strong> partial functionality on failures</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card" style="margin-top: 30px;">
+                    <h3>🔄 Oracle DB Optimization</h3>
+                    <div class="grid-3">
+                        <div>
+                            <strong style="color: #667eea;">Connection Pooling</strong>
+                            <p style="margin-top: 10px; color: #ccc;">HikariCP configured for load spikes</p>
+                        </div>
+                        <div>
+                            <strong style="color: #667eea;">Query Optimization</strong>
+                            <p style="margin-top: 10px; color: #ccc;">Indexes and execution plan analysis</p>
+                        </div>
+                        <div>
+                            <strong style="color: #667eea;">Cache Strategy</strong>
+                            <p style="margin-top: 10px; color: #ccc;">Redis for frequent queries</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number">5</div>
+        </div>
+
+        <!-- Slide 6: Incident Prevention -->
+        <div class="slide" style="background: linear-gradient(135deg, #2a5298 0%, #1e3c72 100%);">
+            <div class="slide-content">
+                <h2>4. Incident Prevention</h2>
+                <div class="grid-2">
+                    <div>
+                        <div class="card">
+                            <h3>🔍 Proactive Monitoring</h3>
+                            <ul>
+                                <li><strong>Prometheus Alerts:</strong> CPU > 80%, Memory > 85%, Disk > 90%</li>
+                                <li><strong>Error rate tracking:</strong> >2% errors = alert</li>
+                                <li><strong>Latency monitoring:</strong> P95 > 2s = alert</li>
+                                <li><strong>ServiceNow integration:</strong> automatic tickets for critical alerts</li>
+                            </ul>
+                        </div>
+                        <div class="card" style="margin-top: 20px;">
+                            <h3>📋 Azure DevOps Work Items</h3>
+                            <ul>
+                                <li>Standardized bug templates</li>
+                                <li>Classification by severity</li>
+                                <li>Automatic linking with commits</li>
+                                <li>Bug dashboards per sprint</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="card">
+                            <h3>🧪 Automated Testing</h3>
+                            <ul>
+                                <li><strong>Unit tests:</strong> >80% mandatory coverage</li>
+                                <li><strong>Integration tests:</strong> critical GAP scenarios</li>
+                                <li><strong>Smoke tests:</strong> after each deployment</li>
+                                <li><strong>Performance tests:</strong> JMeter in pipelines</li>
+                            </ul>
+                        </div>
+                        <div class="benefit-list" style="margin-top: 20px;">
+                            <div class="benefit-item">
+                                <strong>Goal:</strong>
+                                Reduce incidents from 15/month to 5/month
+                            </div>
+                            <div class="benefit-item">
+                                <strong>Prevention:</strong>
+                                70% of issues detected before production
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number">6</div>
+        </div>
+
+        <!-- Slide 7: Fast Resolution -->
+        <div class="slide" style="background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);">
+            <div class="slide-content">
+                <h2>5. Fast Incident Resolution</h2>
+                <div class="grid-2">
+                    <div class="card">
+                        <h3>🎫 Optimized ServiceNow</h3>
+                        <ul>
+                            <li><strong>Templates per type:</strong> DB issue, API timeout, deployment failure</li>
+                            <li><strong>Auto-assignment:</strong> based on skills and availability</li>
+                            <li><strong>Integrated runbooks:</strong> procedures for common incidents</li>
+                            <li><strong>SLA tracking:</strong> P1: 1h, P2: 4h, P3: 8h</li>
+                            <li><strong>Teams integration:</strong> automatic notifications</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h3>📱 Microsoft Teams War Room</h3>
+                        <ul>
+                            <li><strong>#incidents channel:</strong> communication hub</li>
+                            <li><strong>Alert bots:</strong> Prometheus → Teams webhook</li>
+                            <li><strong>Quick links:</strong> dashboards, logs, runbooks</li>
+                            <li><strong>Video calls:</strong> collaborative resolution</li>
+                            <li><strong>Post-mortem templates:</strong> standardized documentation</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card" style="margin-top: 30px;">
+                    <h3>🔧 Diagnostic Tools</h3>
+                    <div class="grid-3">
+                        <div class="benefit-item">
+                            <strong>Log Aggregation</strong>
+                            Centralized Azure Log Analytics
+                        </div>
+                        <div class="benefit-item">
+                            <strong>Metrics Dashboard</strong>
+                            Customized Prometheus + Grafana
+                        </div>
+                        <div class="benefit-item">
+                            <strong>DB Query Analyzer</strong>
+                            Automated Oracle AWR reports
+                        </div>
+                    </div>
+                </div>
+                <div class="grid-3" style="margin-top: 30px;">
+                    <div class="metric-box">
+                        <div class="number">-60%</div>
+                        <div class="label">MTTR Reduction</div>
+                    </div>
+                    <div class="metric-box">
+                        <div class="number"><45min</div>
+                        <div class="label">Avg Resolution</div>
+                    </div>
+                    <div class="metric-box">
+                        <div class="number">90%</div>
+                        <div class="label">First Call Resolution</div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number">7</div>
+        </div>
+
+        <!-- Slide 8: Knowledge Leveling -->
+        <div class="slide" style="background: linear-gradient(135deg, #2a5298 0%, #1e3c72 100%);">
+            <div class="slide-content">
+                <h2>6. Knowledge Leveling</h2>
+                <div class="grid-2">
+                    <div>
+                        <div class="card">
+                            <h3>📚 Centralized Documentation</h3>
+                            <ul>
+                                <li><strong>Azure DevOps Wiki:</strong> GAP technical documentation</li>
+                                <li><strong>Architecture Decision Records (ADRs):</strong> documented architectural decisions</li>
+                                <li><strong>API documentation:</strong> automatic Swagger/OpenAPI</li>
+                                <li><strong>Runbooks:</strong> operational procedures</li>
+                            </ul>
+                        </div>
+                        <div class="card" style="margin-top: 20px;">
+                            <h3>🎓 Copilot as Tutor</h3>
+                            <ul>
+                                <li>Inline explanations of complex code</li>
+                                <li>Best practice suggestions</li>
+                                <li>Usage example generation</li>
+                                <li>Accelerated onboarding</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="card">
+                            <h3>🤝 Team Practices</h3>
+                            <ul>
+                                <li><strong>Pair Programming:</strong> 2x per week, rotating pairs</li>
+                                <li><strong>Mandatory code review:</strong> continuous knowledge sharing</li>
+                                <li><strong>Tech Talks:</strong> 1x per sprint (30min)</li>
+                                <li><strong>Incident retrospectives:</strong> learn from mistakes</li>
+                                <li><strong>Rotation schedule:</strong> everyone exposed to all components</li>
+                            </ul>
+                        </div>
+                        <div class="benefit-list" style="margin-top: 20px;">
+                            <div class="benefit-item">
+                                <strong>Objective:</strong>
+                                Each dev capable of working on 80% of the system
+                            </div>
+                            <div class="benefit-item">
+                                <strong>Bus Factor:</strong>
+                                From 1-2 people to 3-4 people
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number">8</div>
+        </div>
+
+        <!-- Slide 9: Implementation Roadmap -->
+        <div class="slide" style="background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);">
+            <div class="slide-content">
+                <h2>Implementation Roadmap</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <h4>Month 1-2: Foundations</h4>
+                        <ul style="margin-left: 20px;">
+                            <li>Azure DevOps pipeline setup with quality gates</li>
+                            <li>Prometheus configuration + Grafana dashboards</li>
+                            <li>Creation of templates and basic runbooks</li>
+                            <li>ServiceNow ↔ Teams integration</li>
+                        </ul>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>Month 3-4: Automation & Monitoring</h4>
+                        <ul style="margin-left: 20px;">
+                            <li>Implementation of proactive alerts</li>
+                            <li>Automated tests in 50% of critical code</li>
+                            <li>First tech talks and pair programming sessions</li>
+                            <li>Oracle query optimization</li>
+                        </ul>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>Month 5-6: Consolidation</h4>
+                        <ul style="margin-left: 20px;">
+                            <li>80% code coverage achieved</li>
+                            <li>Complete documentation in Azure Wiki</li>
+                            <li>Knowledge rotation established</li>
+                            <li>Success metrics being measured</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card" style="margin-top: 30px; background: rgba(102, 126, 234, 0.15);">
+                    <h3 style="text-align: center; margin-bottom: 20px;">Estimated Effort</h3>
+                    <div class="grid-3">
+                        <div style="text-align: center;">
+                            <div style="font-size: 2em; color: #667eea; font-weight: bold;">20%</div>
+                            <div style="color: #ccc;">Team capacity</div>
+                        </div>
+                        <div style="text-align: center;">
+                            <div style="font-size: 2em; color: #667eea; font-weight: bold;">6 months</div>
+                            <div style="color: #ccc;">Full implementation</div>
+                        </div>
+                        <div style="text-align: center;">
+                            <div style="font-size: 2em; color: #667eea; font-weight: bold;">Zero</div>
+                            <div style="color: #ccc;">New licensing costs</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number">9</div>
+        </div>
+
+        <!-- Slide 10: Expected Benefits -->
+        <div class="slide" style="background: linear-gradient(135deg, #2a5298 0%, #1e3c72 100%);">
+            <div class="slide-content">
+                <h2>Expected Benefits</h2>
+                <div class="grid-2">
+                    <div class="card">
+                        <h3>📊 Success Metrics</h3>
+                        <div class="benefit-item">
+                            <strong>Quality</strong>
+                            40% fewer production bugs
+                        </div>
+                        <div class="benefit-item">
+                            <strong>Speed</strong>
+                            3x more releases per sprint
+                        </div>
+                        <div class="benefit-item">
+                            <strong>Incidents</strong>
+                            -67% volume (15 → 5 per month)
+                        </div>
+                        <div class="benefit-item">
+                            <strong>MTTR</strong>
+                            -60% resolution time (2-4h → <45min)
+                        </div>
+                        <div class="benefit-item">
+                            <strong>Availability</strong>
+                            99.5% → 99.9% uptime
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h3>💼 Business Impact</h3>
+                        <div class="benefit-item">
+                            <strong>Time to Market</strong>
+                            50% faster on new features
+                        </div>
+                        <div class="benefit-item">
+                            <strong>Customer Satisfaction</strong>
+                            Less downtime and faster responses
+                        </div>
+                        <div class="benefit-item">
+                            <strong>Team Productivity</strong>
+                            60% time on development vs 40% on incidents (was 40/60)
+                        </div>
+                        <div class="benefit-item">
+                            <strong>Resilience</strong>
+                            Bus factor from 1-2 to 3-4 people
+                        </div>
+                        <div class="benefit-item">
+                            <strong>Knowledge</strong>
+                            Complete documentation and leveled team
+                        </div>
+                    </div>
+                </div>
+                <div class="roi-box" style="margin-top: 30px;">
+                    <h4>Estimated ROI - 4 Developer Team</h4>
+                    <div class="roi-item">
+                        <span>Reduction in incident hours (20h/month → 8h/month)</span>
+                        <span style="color: #667eea; font-weight: bold;">48h/month saved</span>
+                    </div>
+                    <div class="roi-item">
+                        <span>Productivity increase (Copilot + automation)</span>
+                        <span style="color: #667eea; font-weight: bold;">+30% speed</span>
+                    </div>
+                    <div class="roi-item">
+                        <span>Incident prevention (avg P1 cost: 8h x 10/month)</span>
+                        <span style="color: #667eea; font-weight: bold;">80h/month avoided</span>
+                    </div>
+                    <div class="roi-item" style="font-size: 1.2em; color: #667eea; font-weight: bold; padding-top: 20px;">
+                        <span>Total Estimated Gain</span>
+                        <span>~130 productive hours/month</span>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number">10</div>
+        </div>
+
+        <!-- Slide 11: Useful Links -->
+        <div class="slide" style="background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);">
+            <div class="slide-content">
+                <h2>Useful Links and Resources</h2>
+                <div class="grid-2">
+                    <div class="links-section">
+                        <h3 style="color: #667eea; margin-bottom: 20px;">📚 Technical Documentation</h3>
+                        <a href="https://azure.microsoft.com/en-us/pricing/details/devops/" target="_blank">→ Azure DevOps Pricing</a>
+                        <a href="https://github.com/features/copilot#pricing" target="_blank">→ GitHub Copilot Pricing</a>
+                        <a href="https://prometheus.io/docs/introduction/overview/" target="_blank">→ Prometheus Documentation</a>
+                        <a href="https://www.servicenow.com/products/itsm/pricing.html" target="_blank">→ ServiceNow ITSM Pricing</a>
+                        <a href="https://www.oracle.com/database/pricing.html" target="_blank">→ Oracle Database Licensing</a>
+                    </div>
+                    <div class="links-section">
+                        <h3 style="color: #667eea; margin-bottom: 20px;">🎓 Best Practices & Guides</h3>
+                        <a href="https://docs.microsoft.com/en-us/azure/devops/pipelines/" target="_blank">→ Azure Pipelines Best Practices</a>
+                        <a href="https://sre.google/books/" target="_blank">→ Google SRE Books (Free)</a>
+                        <a href="https://martinfowler.com/articles/practical-test-pyramid.html" target="_blank">→ Test Pyramid - Martin Fowler</a>
+                        <a href="https://12factor.net/" target="_blank">→ The Twelve-Factor App</a>
+                        <a href="https://www.atlassian.com/incident-management/kpis/common-metrics" target="_blank">→ Incident Management Metrics</a>
+                    </div>
+                </div>
+                <div class="roi-box" style="margin-top: 40px;">
+                    <h4>💰 Estimated Investment - Current Stack (4 Developers)</h4>
+                    <div class="roi-item">
+                        <span>Azure DevOps (already included in subscription)</span>
+                        <span style="color: #4ade80;">$0/month additional</span>
+                    </div>
+                    <div class="roi-item">
+                        <span>GitHub Copilot Enterprise (4 licenses)</span>
+                        <span style="color: #fbbf24;">$156/month ($39/user)</span>
+                    </div>
+                    <div class="roi-item">
+                        <span>Prometheus + Grafana (open source)</span>
+                        <span style="color: #4ade80;">$0/month</span>
+                    </div>
+                    <div class="roi-item">
+                        <span>ServiceNow (already licensed)</span>
+                        <span style="color: #4ade80;">$0/month additional</span>
+                    </div>
+                    <div class="roi-item">
+                        <span>Training and setup (one-time)</span>
+                        <span style="color: #fbbf24;">40h team effort</span>
+                    </div>
+                    <div class="roi-item" style="font-size: 1.3em; color: #667eea; font-weight: bold; padding-top: 20px; border-top: 2px solid rgba(102, 126, 234, 0.5);">
+                        <span>Total Monthly Investment</span>
+                        <span>~$156/month</span>
+                    </div>
+                    <div class="roi-item" style="font-size: 1.3em; color: #4ade80; font-weight: bold;">
+                        <span>ROI (savings vs investment)</span>
+                        <span>130h/month vs $156 = 833x ROI</span>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number">11</div>
+        </div>
+
+        <!-- Slide 12: Next Steps -->
+        <div class="slide" style="background: linear-gradient(135deg, #2a5298 0%, #1e3c72 100%);">
+            <div class="slide-content" style="text-align: center;">
+                <h2 style="margin-bottom: 50px;">Next Steps</h2>
+                <div class="grid-3">
+                    <div class="card">
+                        <h3 style="font-size: 3em; margin-bottom: 20px;">1️⃣</h3>
+                        <h4 style="color: #667eea; margin-bottom: 15px;">Approval</h4>
+                        <p>Validate roadmap and allocate 20% of team capacity</p>
+                    </div>
+                    <div class="card">
+                        <h3 style="font-size: 3em; margin-bottom: 20px;">2️⃣</h3>
+                        <h4 style="color: #667eea; margin-bottom: 15px;">Kick-off</h4>
+                        <p>Initial setup (Week 1-2): pipelines, monitoring, templates</p>
+                    </div>
+                    <div class="card">
+                        <h3 style="font-size: 3em; margin-bottom: 20px;">3️⃣</h3>
+                        <h4 style="color: #667eea; margin-bottom: 15px;">Monthly Review</h4>
+                        <p>Present metrics and adjust strategy as needed</p>
+                    </div>
+                </div>
+                <div class="card" style="margin-top: 60px; background: rgba(102, 126, 234, 0.15); border: 2px solid #667eea;">
+                    <h3 style="color: #667eea; margin-bottom: 20px;">🎯 Final Goal</h3>
+                    <p style="font-size: 1.3em; line-height: 1.8;">
+                        Transform the GAP team into a <strong style="color: #667eea;">high-performance</strong> operation,
+                        with <strong style="color: #667eea;">exceptional quality</strong>,
+                        <strong style="color: #667eea;">fast deliveries</strong> and
+                        <strong style="color: #667eea;">proven resilience</strong> -
+                        all using tools we already have!
+                    </p>
+                </div>
+                <div style="margin-top: 60px; font-size: 1.5em; color: #888;">
+                    Thank you! Questions?
+                </div>
+            </div>
+            <div class="slide-number">12</div>
+        </div>
+
+    </div>
 </body>
 </html>
