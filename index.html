@@ -1,23 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GAP Migration - Current Stack Improvements</title>
+    <title>GAP Migration - Claude AI &amp; N8N</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-       
+        
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #1a1a1a;
+            background: #0a0a0a;
             color: #fff;
             overflow-x: hidden;
         }
-       
+        
         .slide-container {
             width: 100vw;
             height: 100vh;
@@ -25,7 +23,7 @@
             scroll-snap-type: y mandatory;
             scroll-behavior: smooth;
         }
-       
+        
         .slide {
             width: 100%;
             min-height: 100vh;
@@ -37,7 +35,7 @@
             scroll-snap-align: start;
             position: relative;
         }
-       
+        
         .slide::before {
             content: '';
             position: absolute;
@@ -45,16 +43,16 @@
             left: 0;
             right: 0;
             bottom: 0;
-            opacity: 0.1;
+            opacity: 0.05;
             z-index: 0;
         }
-       
+        
         .slide-content {
             max-width: 1200px;
             width: 100%;
             z-index: 1;
         }
-       
+        
         .slide-number {
             position: absolute;
             bottom: 30px;
@@ -62,237 +60,315 @@
             font-size: 14px;
             color: #888;
         }
-       
+        
         h1 {
             font-size: 3.5em;
             margin-bottom: 20px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 50%, #ffd700 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
-       
+        
         h2 {
             font-size: 2.5em;
             margin-bottom: 30px;
-            color: #667eea;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
-       
+        
         h3 {
             font-size: 1.8em;
             margin-bottom: 20px;
-            color: #764ba2;
+            color: #f093fb;
         }
-       
+        
         .subtitle {
             font-size: 1.5em;
             color: #aaa;
             margin-bottom: 40px;
         }
-       
+        
         .grid-2 {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 30px;
             margin-top: 30px;
         }
-       
+        
         .grid-3 {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 25px;
             margin-top: 30px;
         }
-       
+        
         .card {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(240, 147, 251, 0.2);
             border-radius: 15px;
             padding: 30px;
             backdrop-filter: blur(10px);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: all 0.3s ease;
         }
-       
+        
         .card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+            box-shadow: 0 10px 40px rgba(240, 147, 251, 0.3);
+            border-color: rgba(240, 147, 251, 0.5);
         }
-       
+        
         .card h3 {
             margin-bottom: 15px;
             font-size: 1.5em;
         }
-       
+        
         .card ul {
             list-style: none;
             margin-top: 15px;
         }
-       
+        
         .card li {
             padding: 8px 0;
             padding-left: 25px;
             position: relative;
             line-height: 1.6;
         }
-       
+        
         .card li::before {
-            content: '→';
+            content: '⚡';
             position: absolute;
             left: 0;
-            color: #667eea;
-            font-weight: bold;
+            font-size: 1.2em;
         }
-       
+        
         .metric-box {
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.2) 0%, rgba(118, 75, 162, 0.2) 100%);
+            background: linear-gradient(135deg, rgba(240, 147, 251, 0.2) 0%, rgba(245, 87, 108, 0.2) 100%);
             border-radius: 15px;
             padding: 25px;
             text-align: center;
-            border: 2px solid rgba(102, 126, 234, 0.3);
+            border: 2px solid rgba(240, 147, 251, 0.3);
         }
-       
+        
         .metric-box .number {
             font-size: 3em;
             font-weight: bold;
-            color: #667eea;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             margin-bottom: 10px;
         }
-       
+        
         .metric-box .label {
             font-size: 1.1em;
             color: #ccc;
         }
-       
-        .timeline {
-            position: relative;
-            padding-left: 40px;
+        
+        .workflow-diagram {
+            background: rgba(255, 255, 255, 0.03);
+            border: 2px solid rgba(240, 147, 251, 0.2);
+            border-radius: 20px;
+            padding: 40px;
             margin-top: 30px;
         }
-       
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 10px;
-            top: 0;
-            bottom: 0;
-            width: 3px;
-            background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
+        
+        .workflow-step {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+            padding: 20px;
+            background: rgba(240, 147, 251, 0.1);
+            border-radius: 10px;
+            border-left: 4px solid #f093fb;
         }
-       
-        .timeline-item {
-            position: relative;
-            margin-bottom: 30px;
-            padding-left: 30px;
+        
+        .workflow-step .icon {
+            font-size: 2.5em;
+            margin-right: 20px;
+            min-width: 60px;
+            text-align: center;
         }
-       
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: -32px;
-            top: 5px;
-            width: 15px;
-            height: 15px;
-            border-radius: 50%;
-            background: #667eea;
-            border: 3px solid #1a1a1a;
+        
+        .workflow-step .content {
+            flex: 1;
         }
-       
-        .timeline-item h4 {
-            color: #667eea;
-            margin-bottom: 10px;
+        
+        .workflow-step h4 {
+            color: #f093fb;
+            margin-bottom: 8px;
             font-size: 1.3em;
         }
-       
-        .benefit-list {
-            margin-top: 20px;
+        
+        .tech-badge {
+            background: rgba(240, 147, 251, 0.2);
+            padding: 10px 20px;
+            border-radius: 20px;
+            border: 1px solid #f093fb;
+            font-weight: 500;
+            display: inline-block;
+            margin: 5px;
         }
-       
+        
         .benefit-item {
-            background: rgba(102, 126, 234, 0.1);
-            border-left: 4px solid #667eea;
+            background: rgba(240, 147, 251, 0.1);
+            border-left: 4px solid #f093fb;
             padding: 15px 20px;
             margin-bottom: 15px;
             border-radius: 5px;
         }
-       
+        
         .benefit-item strong {
-            color: #667eea;
+            color: #f093fb;
             display: block;
             margin-bottom: 5px;
         }
-       
-        .tech-stack {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin-top: 20px;
+        
+        .comparison-box {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 20px;
+            align-items: center;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 15px;
+            margin-top: 30px;
         }
-       
-        .tech-badge {
-            background: rgba(102, 126, 234, 0.2);
-            padding: 10px 20px;
-            border-radius: 20px;
-            border: 1px solid #667eea;
-            font-weight: 500;
+        
+        .comparison-side {
+            padding: 20px;
+            border-radius: 10px;
         }
-       
+        
+        .comparison-side.before {
+            background: rgba(255, 87, 87, 0.1);
+            border: 2px solid rgba(255, 87, 87, 0.3);
+        }
+        
+        .comparison-side.after {
+            background: rgba(87, 255, 87, 0.1);
+            border: 2px solid rgba(87, 255, 87, 0.3);
+        }
+        
+        .comparison-arrow {
+            font-size: 3em;
+            color: #f093fb;
+        }
+        
+        .code-block {
+            background: #1a1a1a;
+            border: 1px solid rgba(240, 147, 251, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            overflow-x: auto;
+            margin-top: 15px;
+        }
+        
+        .code-block .comment {
+            color: #888;
+        }
+        
+        .code-block .keyword {
+            color: #f093fb;
+        }
+        
+        .code-block .string {
+            color: #ffd700;
+        }
+        
         .links-section {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.03);
             border-radius: 15px;
             padding: 30px;
             margin-top: 30px;
         }
-       
+        
         .links-section a {
-            color: #667eea;
+            color: #f093fb;
             text-decoration: none;
             display: block;
             padding: 10px 0;
             transition: color 0.3s;
         }
-       
+        
         .links-section a:hover {
-            color: #764ba2;
+            color: #f5576c;
         }
-       
-        .roi-box {
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.15) 0%, rgba(118, 75, 162, 0.15) 100%);
+        
+        .cost-box {
+            background: linear-gradient(135deg, rgba(240, 147, 251, 0.15) 0%, rgba(245, 87, 108, 0.15) 100%);
             border-radius: 15px;
             padding: 25px;
             margin-top: 20px;
-            border: 2px solid rgba(102, 126, 234, 0.3);
+            border: 2px solid rgba(240, 147, 251, 0.3);
         }
-       
-        .roi-box h4 {
-            color: #667eea;
+        
+        .cost-box h4 {
+            color: #f093fb;
             margin-bottom: 15px;
             font-size: 1.3em;
         }
-       
-        .roi-item {
+        
+        .cost-item {
             display: flex;
             justify-content: space-between;
             padding: 10px 0;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
-       
-        .roi-item:last-child {
+        
+        .cost-item:last-child {
             border-bottom: none;
         }
-       
+        
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(240, 147, 251, 0.2) 0%, rgba(245, 87, 108, 0.2) 100%);
+            border: 2px solid #f093fb;
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 30px;
+            text-align: center;
+        }
+        
+        .use-case {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(240, 147, 251, 0.2);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .use-case .title {
+            color: #f093fb;
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
         @media (max-width: 768px) {
             .grid-2, .grid-3 {
                 grid-template-columns: 1fr;
             }
-           
+            
+            .comparison-box {
+                grid-template-columns: 1fr;
+            }
+            
+            .comparison-arrow {
+                transform: rotate(90deg);
+            }
+            
             h1 {
                 font-size: 2.5em;
             }
-           
+            
             h2 {
                 font-size: 2em;
             }
-           
+            
             .slide {
                 padding: 30px 20px;
             }
@@ -301,118 +377,117 @@
 </head>
 <body>
     <div class="slide-container">
-       
+        
         <!-- Slide 1: Title -->
-        <div class="slide" style="background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);">
+        <div class="slide" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);">
             <div class="slide-content" style="text-align: center;">
-                <h1>GAP Migration</h1>
-                <p class="subtitle">Process Optimization with Current Stack</p>
+                <h1>Vantastico - GAP Migration</h1>
+                <p class="subtitle">AI Superpowers with Claude AI + N8N</p>
                 <div style="margin-top: 60px;">
-                    <p style="font-size: 1.2em; color: #ccc;">Improving Quality, Speed and Resilience</p>
-                    <p style="font-size: 1em; color: #999; margin-top: 20px;">Management Presentation | 2025</p>
+                    <p style="font-size: 1.3em; color: #fff;">🤖 Artificial Intelligence + Extreme Automation</p>
+                    <p style="font-size: 1em; color: #ddd; margin-top: 20px;">Taking the 4-developer team to the next level</p>
                 </div>
-                <div class="tech-stack" style="justify-content: center; margin-top: 40px;">
-                    <span class="tech-badge">Java 8</span>
-                    <span class="tech-badge">iBatis</span>
-                    <span class="tech-badge">Azure DevOps</span>
-                    <span class="tech-badge">Prometheus</span>
-                    <span class="tech-badge">ServiceNow</span>
-                    <span class="tech-badge">Oracle DB</span>
-                    <span class="tech-badge">Copilot</span>
+                <div style="margin-top: 50px; display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
+                    <div style="text-align: center;">
+                        <div style="font-size: 4em;">🤖</div>
+                        <div class="tech-badge">Claude AI</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 4em;">⚙️</div>
+                        <div class="tech-badge">N8N</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 4em;">📱</div>
+                        <div class="tech-badge">WhatsApp</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 4em;">💬</div>
+                        <div class="tech-badge">Teams</div>
+                    </div>
                 </div>
             </div>
             <div class="slide-number">1</div>
         </div>
 
-        <!-- Slide 2: Current Context -->
-        <div class="slide" style="background: linear-gradient(135deg, #2a5298 0%, #1e3c72 100%);">
+        <!-- Slide 2: The Power of Combination -->
+        <div class="slide" style="background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);">
             <div class="slide-content">
-                <h2>Current Project Context</h2>
+                <h2>Why Claude AI + N8N?</h2>
                 <div class="grid-2">
                     <div class="card">
-                        <h3>🎯 Challenges</h3>
+                        <h3>🤖 Claude AI - The Smart Copilot</h3>
                         <ul>
-                            <li>Documentum → GAP/GRP migration</li>
-                            <li>Multiple systems (PRM, PRMB, LOM)</li>
-                            <li>Reactive incident management</li>
-                            <li>Concentrated knowledge</li>
-                            <li>Manual processes</li>
+                            <li>Log analysis in seconds vs hours</li>
+                            <li>Automatic runbook generation</li>
+                            <li>Intelligent code review 24/7</li>
+                            <li>Auto-generated documentation</li>
+                            <li>Incident resolution assistant</li>
+                            <li>Instant root cause analysis</li>
                         </ul>
                     </div>
                     <div class="card">
-                        <h3>👥 Team</h3>
+                        <h3>⚙️ N8N - Unlimited Automation</h3>
                         <ul>
-                            <li>4 Developers</li>
-                            <li>Rotating on-call schedule</li>
-                            <li>Legacy and modern Java stack</li>
-                            <li>Multiple responsibilities</li>
-                            <li>Pressure for fast deliveries</li>
+                            <li>Visual workflows (no-code/low-code)</li>
+                            <li>Integration with 400+ applications</li>
+                            <li>Smart notifications (WhatsApp, Teams)</li>
+                            <li>Complex process orchestration</li>
+                            <li>Self-hosted: full control and security</li>
+                            <li>Webhooks for any system</li>
                         </ul>
                     </div>
                 </div>
-                <div class="grid-3" style="margin-top: 30px;">
-                    <div class="metric-box">
-                        <div class="number">~15</div>
-                        <div class="label">Incidents/month</div>
-                    </div>
-                    <div class="metric-box">
-                        <div class="number">2-4h</div>
-                        <div class="label">Average MTTR</div>
-                    </div>
-                    <div class="metric-box">
-                        <div class="number">60%</div>
-                        <div class="label">Time on incidents</div>
-                    </div>
+                <div class="highlight-box" style="margin-top: 40px;">
+                    <h3 style="margin-bottom: 20px;">🎯 Our Reality &amp; Opportunity</h3>
+                    <p style="font-size: 1.2em; line-height: 1.8;">
+                        In the last 3 months: <strong style="color: #ffd700;">14 incidents (avg 5/month)</strong> - all P2/P3 severity.<br>
+                        <strong style="color: #f093fb;">Zero P1 incidents</strong> shows our stability, but we can do even better!<br>
+                        With <strong style="color: #f5576c;">AI + automation</strong>, we'll <strong style="color: #57ff57;">detect issues earlier</strong>, 
+                        prevent escalation, and resolve 80% faster.
+                    </p>
                 </div>
             </div>
             <div class="slide-number">2</div>
         </div>
 
-        <!-- Slide 3: Quality Strategy -->
-        <div class="slide" style="background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);">
+        <!-- Slide 3: Solution Architecture -->
+        <div class="slide" style="background: linear-gradient(135deg, #232526 0%, #414345 100%);">
             <div class="slide-content">
-                <h2>1. Improving Delivery Quality</h2>
-                <div class="grid-2">
-                    <div>
-                        <div class="card">
-                            <h3>Azure DevOps - Advanced CI/CD</h3>
-                            <ul>
-                                <li>Pipelines with quality gates</li>
-                                <li>Mandatory code review (2 approvers)</li>
-                                <li>Automated static analysis (SonarQube)</li>
-                                <li>Mandatory unit tests (>80% coverage)</li>
-                                <li>Stage deployments (DEV → QA → PROD)</li>
-                            </ul>
-                        </div>
-                        <div class="card" style="margin-top: 20px;">
-                            <h3>GitHub Copilot - Pair Programming</h3>
-                            <ul>
-                                <li>Unit test generation</li>
-                                <li>Automatic documentation</li>
-                                <li>Assisted refactoring</li>
-                                <li>AI code review</li>
-                            </ul>
+                <h2>Intelligent Automation Architecture</h2>
+                <div class="workflow-diagram">
+                    <div class="workflow-step">
+                        <div class="icon">🔔</div>
+                        <div class="content">
+                            <h4>1. Early Detection</h4>
+                            <p>Prometheus alert → N8N Webhook → Automatic ServiceNow ticket (before users notice!)</p>
                         </div>
                     </div>
-                    <div>
-                        <div class="card">
-                            <h3>Eclipse + Tools</h3>
-                            <ul>
-                                <li>Plugins: Checkstyle, SpotBugs, PMD</li>
-                                <li>Standardized code templates</li>
-                                <li>Shared configurations in Git</li>
-                                <li>Snippets for GAP patterns</li>
-                            </ul>
+                    <div class="workflow-step">
+                        <div class="icon">🤖</div>
+                        <div class="content">
+                            <h4>2. Instant Analysis with Claude AI</h4>
+                            <p>Claude analyzes logs, identifies patterns in Java/iBatis/Oracle, suggests root cause and solution</p>
                         </div>
-                        <div class="benefit-list" style="margin-top: 20px;">
-                            <div class="benefit-item">
-                                <strong>Expected Result:</strong>
-                                40% reduction in production bugs within first 3 months
-                            </div>
-                            <div class="benefit-item">
-                                <strong>KPI:</strong>
-                                Defect Escape Rate < 5%
-                            </div>
+                    </div>
+                    <div class="workflow-step">
+                        <div class="icon">📱</div>
+                        <div class="content">
+                            <h4>3. Smart Notification</h4>
+                            <p>N8N → WhatsApp (on-call dev) + Teams (whole team) with AI analysis and severity assessment</p>
+                        </div>
+                    </div>
+                    <div class="workflow-step">
+                        <div class="icon">🔧</div>
+                        <div class="content">
+                            <h4>4. Assisted Resolution</h4>
+                            <p>Dev uses Claude for debugging Java/iBatis code, Claude suggests fixes, automated tests validate</p>
+                        </div>
+                    </div>
+                    <div class="workflow-step">
+                        <div class="icon">📊</div>
+                        <div class="content">
+                            <h4>5. Prevention Learning</h4>
+                            <p>Claude analyzes trends from our 5 incidents/month, suggests preventive measures to reduce frequency</p>
                         </div>
                     </div>
                 </div>
@@ -420,95 +495,160 @@
             <div class="slide-number">3</div>
         </div>
 
-        <!-- Slide 4: Speed -->
-        <div class="slide" style="background: linear-gradient(135deg, #2a5298 0%, #1e3c72 100%);">
+        <!-- Slide 4: N8N Practical Workflows -->
+        <div class="slide" style="background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);">
             <div class="slide-content">
-                <h2>2. Increasing Delivery Speed</h2>
-                <div class="timeline">
-                    <div class="timeline-item">
-                        <h4>Azure DevOps Automation</h4>
-                        <p>Automated build & deploy in <15min</p>
-                        <ul style="margin-top: 10px; margin-left: 20px;">
-                            <li>Automatic triggers per branch</li>
-                            <li>1-click rollback</li>
-                            <li>Feature flags for gradual releases</li>
-                        </ul>
+                <h2>N8N Workflows for GAP</h2>
+                <div class="grid-2">
+                    <div class="use-case">
+                        <div class="title">🚨 Workflow 1: Incident Alert</div>
+                        <div class="code-block">
+<span class="comment">// Trigger: Prometheus Webhook</span>
+Prometheus Alert → N8N
+↓
+<span class="keyword">IF</span> severity == <span class="string">"warning"</span>:
+  ↓ Create ServiceNow Ticket (P2)
+  ↓ Get logs from Azure (last 30min)
+  ↓ Send logs to Claude API for analysis
+  ↓ Send WhatsApp to on-call dev
+  ↓ Send Teams message to #incidents
+  ↓ Update ServiceNow with AI analysis
+<span class="keyword">ELSE IF</span> severity == <span class="string">"info"</span>:
+  ↓ Create ServiceNow Ticket (P3)
+  ↓ Send Teams message only
+  ↓ Log for trend analysis
+                        </div>
                     </div>
-                    <div class="timeline-item">
-                        <h4>Copilot for Productivity</h4>
-                        <p>+30% speed on boilerplate code</p>
-                        <ul style="margin-top: 10px; margin-left: 20px;">
-                            <li>DAO and iBatis query generation</li>
-                            <li>Test creation in seconds</li>
-                            <li>Automatic inline documentation</li>
-                        </ul>
-                    </div>
-                    <div class="timeline-item">
-                        <h4>Templates and Scaffolding</h4>
-                        <p>New services in <2 hours</p>
-                        <ul style="margin-top: 10px; margin-left: 20px;">
-                            <li>Base project in Azure Repos</li>
-                            <li>Standard GAP/GRP structure</li>
-                            <li>Pre-configured settings</li>
-                        </ul>
+                    <div class="use-case">
+                        <div class="title">📈 Workflow 2: Daily Health Check</div>
+                        <div class="code-block">
+<span class="comment">// Trigger: Cron (09:00 daily)</span>
+Scheduled Trigger → N8N
+↓
+Query Prometheus (last 24h metrics)
+↓
+Query ServiceNow (open incidents)
+↓
+Query Azure DevOps (failed pipelines)
+↓
+<span class="comment">// Check Java app health</span>
+Verify iBatis connection pools
+Check Oracle DB tablespaces
+↓
+Send data to Claude for analysis
+↓
+Generate health report
+↓
+Send to Teams <span class="string">"#daily-health"</span>
+                        </div>
                     </div>
                 </div>
-                <div class="grid-3" style="margin-top: 30px;">
-                    <div class="metric-box">
-                        <div class="number">50%</div>
-                        <div class="label">↑ Deploy Speed</div>
+                <div class="grid-2" style="margin-top: 20px;">
+                    <div class="use-case">
+                        <div class="title">🔄 Workflow 3: Deploy Notification</div>
+                        <div class="code-block">
+<span class="comment">// Trigger: Azure DevOps Webhook</span>
+Pipeline Complete → N8N
+↓
+Get deployment details
+↓
+<span class="keyword">IF</span> status == <span class="string">"success"</span>:
+  ↓ Send success message to Teams
+  ↓ Update deployment dashboard
+  ↓ Trigger smoke tests
+<span class="keyword">ELSE</span>:
+  ↓ Get failure logs
+  ↓ Claude analyzes Java error
+  ↓ WhatsApp + Teams with diagnosis
+  ↓ Create incident ticket (P3)
+                        </div>
                     </div>
-                    <div class="metric-box">
-                        <div class="number">30%</div>
-                        <div class="label">↑ Coding Speed</div>
-                    </div>
-                    <div class="metric-box">
-                        <div class="number">3x</div>
-                        <div class="label">↑ Releases/Sprint</div>
+                    <div class="use-case">
+                        <div class="title">📝 Workflow 4: Auto-Documentation</div>
+                        <div class="code-block">
+<span class="comment">// Trigger: Git Push to main</span>
+Git Webhook → N8N
+↓
+Get changed files
+↓
+<span class="keyword">IF</span> contains <span class="string">".java"</span> files:
+  ↓ Send code to Claude
+  ↓ Generate/update API docs
+  ↓ Generate/update runbooks
+  ↓ Update Azure Wiki
+  ↓ Check for common Java patterns
+  ↓ Notify team via Teams
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="slide-number">4</div>
         </div>
 
-        <!-- Slide 5: Resilience -->
-        <div class="slide" style="background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);">
+        <!-- Slide 5: Claude AI Use Cases -->
+        <div class="slide" style="background: linear-gradient(135deg, #232526 0%, #414345 100%);">
             <div class="slide-content">
-                <h2>3. Increasing System Resilience</h2>
+                <h2>Claude AI: Real Use Cases for Our Stack</h2>
                 <div class="grid-2">
-                    <div class="card">
-                        <h3>📊 Prometheus + Slim Monitoring</h3>
-                        <ul>
-                            <li><strong>Custom metrics:</strong> GAP response times, error rate per endpoint</li>
-                            <li><strong>Proactive alerts:</strong> before users report</li>
-                            <li><strong>Dashboards per component:</strong> PRM, PRMB, LOM, GAP</li>
-                            <li><strong>SLA tracking:</strong> 99.9% availability</li>
-                        </ul>
-                    </div>
-                    <div class="card">
-                        <h3>🛡️ Resilience Strategies</h3>
-                        <ul>
-                            <li><strong>Circuit Breaker:</strong> protect Oracle DB calls</li>
-                            <li><strong>Retry policies:</strong> GAP/GRP calls with backoff</li>
-                            <li><strong>Health checks:</strong> /health endpoints in all services</li>
-                            <li><strong>Graceful degradation:</strong> partial functionality on failures</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="card" style="margin-top: 30px;">
-                    <h3>🔄 Oracle DB Optimization</h3>
-                    <div class="grid-3">
-                        <div>
-                            <strong style="color: #667eea;">Connection Pooling</strong>
-                            <p style="margin-top: 10px; color: #ccc;">HikariCP configured for load spikes</p>
+                    <div>
+                        <div class="card">
+                            <h3>🔍 1. Intelligent Log Analysis</h3>
+                            <p style="margin-bottom: 15px; color: #ccc;">
+                                "Claude, analyze these Java logs and identify the iBatis issue"
+                            </p>
+                            <div class="benefit-item">
+                                <strong>Before:</strong> 1-2 hours manually searching through logs
+                            </div>
+                            <div class="benefit-item">
+                                <strong>After:</strong> 30 seconds with precise answer
+                            </div>
+                            <div class="benefit-item">
+                                <strong>Real example:</strong> "SQLException in iBatis mapper at PaymentDAO.xml line 142. Oracle tablespace PRMPRD_DATA at 94% capacity. Suggest: extend tablespace or archive old records from PAYMENT_HISTORY table."
+                            </div>
                         </div>
-                        <div>
-                            <strong style="color: #667eea;">Query Optimization</strong>
-                            <p style="margin-top: 10px; color: #ccc;">Indexes and execution plan analysis</p>
+                        <div class="card" style="margin-top: 20px;">
+                            <h3>📚 2. Runbook Generation</h3>
+                            <p style="margin-bottom: 15px; color: #ccc;">
+                                "Claude, create runbook for Oracle connection pool issues"
+                            </p>
+                            <div class="benefit-item">
+                                <strong>Output:</strong> Step-by-step guide with Java config examples, iBatis settings, rollback procedures
+                            </div>
                         </div>
-                        <div>
-                            <strong style="color: #667eea;">Cache Strategy</strong>
-                            <p style="margin-top: 10px; color: #ccc;">Redis for frequent queries</p>
+                    </div>
+                    <div>
+                        <div class="card">
+                            <h3>🐛 3. Assisted Debugging</h3>
+                            <p style="margin-bottom: 15px; color: #ccc;">
+                                Developer converses with Claude during troubleshooting
+                            </p>
+                            <div class="code-block">
+Dev: "GAP API returning 500 errors"
+Claude: "Analyzing Azure logs...
+Found: iBatis SqlMapException in 
+PrmService.processPayment().
+
+Issue: Oracle connection timeout after
+30 seconds. Current pool: 20 connections,
+all busy during peak hours.
+
+Suggestions:
+1. Increase pool size to 50 (HikariCP config)
+2. Add connection timeout monitoring
+3. Review slow queries in Oracle AWR"
+
+Dev: "Show me the HikariCP config"
+Claude: "Here's the updated config..."
+                            </div>
+                        </div>
+                        <div class="card" style="margin-top: 20px;">
+                            <h3>📖 4. Pattern Recognition</h3>
+                            <p style="margin-bottom: 15px; color: #ccc;">
+                                "Analyze our 14 recent incidents - what are the patterns?"
+                            </p>
+                            <div class="benefit-item">
+                                <strong>Claude identifies:</strong> 60% are Oracle-related, 30% iBatis timeouts, 10% Azure deployment issues - suggests specific preventive measures
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -516,49 +656,93 @@
             <div class="slide-number">5</div>
         </div>
 
-        <!-- Slide 6: Incident Prevention -->
-        <div class="slide" style="background: linear-gradient(135deg, #2a5298 0%, #1e3c72 100%);">
+        <!-- Slide 6: Smart Notifications -->
+        <div class="slide" style="background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);">
             <div class="slide-content">
-                <h2>4. Incident Prevention</h2>
-                <div class="grid-2">
-                    <div>
-                        <div class="card">
-                            <h3>🔍 Proactive Monitoring</h3>
-                            <ul>
-                                <li><strong>Prometheus Alerts:</strong> CPU > 80%, Memory > 85%, Disk > 90%</li>
-                                <li><strong>Error rate tracking:</strong> >2% errors = alert</li>
-                                <li><strong>Latency monitoring:</strong> P95 > 2s = alert</li>
-                                <li><strong>ServiceNow integration:</strong> automatic tickets for critical alerts</li>
-                            </ul>
-                        </div>
-                        <div class="card" style="margin-top: 20px;">
-                            <h3>📋 Azure DevOps Work Items</h3>
-                            <ul>
-                                <li>Standardized bug templates</li>
-                                <li>Classification by severity</li>
-                                <li>Automatic linking with commits</li>
-                                <li>Bug dashboards per sprint</li>
-                            </ul>
+                <h2>Smart Notification System</h2>
+                <div class="comparison-box">
+                    <div class="comparison-side before">
+                        <h3 style="color: #ff5757; margin-bottom: 20px;">❌ Current Process</h3>
+                        <ul style="list-style: none;">
+                            <li style="margin-bottom: 10px;">📧 Generic ServiceNow email</li>
+                            <li style="margin-bottom: 10px;">⏰ Dev discovers P2/P3 incident hours later</li>
+                            <li style="margin-bottom: 10px;">❓ No context or preliminary analysis</li>
+                            <li style="margin-bottom: 10px;">🔍 Need to check Azure logs, Prometheus, Oracle</li>
+                            <li style="margin-bottom: 10px;">⏱️ 30-45min to understand and start fixing</li>
+                        </ul>
+                    </div>
+                    <div class="comparison-arrow">→</div>
+                    <div class="comparison-side after">
+                        <h3 style="color: #57ff57; margin-bottom: 20px;">✅ With N8N + Claude</h3>
+                        <ul style="list-style: none;">
+                            <li style="margin-bottom: 10px;">📱 WhatsApp instant to on-call dev</li>
+                            <li style="margin-bottom: 10px;">⚡ Notification in &lt;30 seconds</li>
+                            <li style="margin-bottom: 10px;">🤖 With Claude analysis of Java/iBatis/Oracle</li>
+                            <li style="margin-bottom: 10px;">🔗 Direct links to logs, dashboards, metrics</li>
+                            <li style="margin-bottom: 10px;">💡 Specific fix suggestions on first contact</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="grid-2" style="margin-top: 40px;">
+                    <div class="card">
+                        <h3>📱 WhatsApp Message - Real Example</h3>
+                        <div style="background: #128C7E; padding: 20px; border-radius: 10px; margin-top: 15px; font-family: sans-serif;">
+                            <div style="font-weight: bold; margin-bottom: 15px;">⚠️ P2 INCIDENT - GAP Production</div>
+                            <div style="margin-bottom: 10px;"><strong>Time:</strong> 14:32:15</div>
+                            <div style="margin-bottom: 10px;"><strong>System:</strong> PRM Payment Service (Java 8)</div>
+                            <div style="margin-bottom: 10px;"><strong>Issue:</strong> Slow response times (&gt;5s)</div>
+                            <div style="margin-bottom: 15px;"><strong>Impact:</strong> Users experiencing delays</div>
+                            
+                            <div style="background: rgba(0,0,0,0.2); padding: 15px; border-radius: 5px; margin-bottom: 15px;">
+                                <div style="font-weight: bold; margin-bottom: 10px;">🤖 Claude Analysis:</div>
+                                <div style="font-size: 0.9em;">
+                                    <strong>Root cause:</strong> iBatis query timeout<br>
+                                    Payment_History table scan detected<br>
+                                    Missing index on CREATED_DATE column<br>
+                                    <br>
+                                    <strong>Priority:</strong> P2 - Medium (no errors yet)<br>
+                                    <strong>Risk:</strong> May escalate to P1 if not fixed<br>
+                                    <br>
+                                    <strong>Suggested fix:</strong><br>
+                                    1. Create index: CREATE INDEX idx_payment_date ON PAYMENT_HISTORY(CREATED_DATE)<br>
+                                    2. Review iBatis PaymentDAO.xml query optimization<br>
+                                    3. Add query timeout monitoring
+                                </div>
+                            </div>
+                            
+                            <div style="font-size: 0.9em;">
+                                📊 <a href="#" style="color: #fff;">Prometheus Dashboard</a><br>
+                                📝 <a href="#" style="color: #fff;">Azure Logs</a><br>
+                                🗄️ <a href="#" style="color: #fff;">Oracle AWR Report</a><br>
+                                🎫 <a href="#" style="color: #fff;">ServiceNow #INC0012345</a>
+                            </div>
                         </div>
                     </div>
-                    <div>
-                        <div class="card">
-                            <h3>🧪 Automated Testing</h3>
-                            <ul>
-                                <li><strong>Unit tests:</strong> >80% mandatory coverage</li>
-                                <li><strong>Integration tests:</strong> critical GAP scenarios</li>
-                                <li><strong>Smoke tests:</strong> after each deployment</li>
-                                <li><strong>Performance tests:</strong> JMeter in pipelines</li>
-                            </ul>
-                        </div>
-                        <div class="benefit-list" style="margin-top: 20px;">
-                            <div class="benefit-item">
-                                <strong>Goal:</strong>
-                                Reduce incidents from 15/month to 5/month
+                    
+                    <div class="card">
+                        <h3>💬 Teams Message - Example</h3>
+                        <div style="background: #464EB8; padding: 20px; border-radius: 10px; margin-top: 15px;">
+                            <div style="font-weight: bold; margin-bottom: 15px; display: flex; align-items: center;">
+                                <span style="margin-right: 10px;">🔔</span> 
+                                <span>GAP Incident Alert</span>
                             </div>
-                            <div class="benefit-item">
-                                <strong>Prevention:</strong>
-                                70% of issues detected before production
+                            <div style="background: rgba(0,0,0,0.3); padding: 15px; border-radius: 5px; margin-bottom: 15px;">
+                                <div><strong>Severity:</strong> P2 - Medium</div>
+                                <div><strong>Component:</strong> PRM Payment Service</div>
+                                <div><strong>Technology:</strong> Java 8 + iBatis + Oracle</div>
+                                <div><strong>On-call:</strong> @Thiago 2 (notified via WhatsApp)</div>
+                                <div><strong>Status:</strong> Investigating</div>
+                            </div>
+                            <div style="font-size: 0.95em; margin-bottom: 15px;">
+                                <strong>AI Analysis Summary:</strong><br>
+                                Performance degradation detected. iBatis query doing full table scan on PAYMENT_HISTORY. Missing database index causing slow queries. Risk of escalation to P1 if traffic increases. Recommended: create index immediately, optimize query in PaymentDAO.xml.
+                            </div>
+                            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                                <button style="background: rgba(255,255,255,0.2); border: none; padding: 8px 15px; border-radius: 5px; color: #fff; cursor: pointer;">View Logs</button>
+                                <button style="background: rgba(255,255,255,0.2); border: none; padding: 8px 15px; border-radius: 5px; color: #fff; cursor: pointer;">Prometheus</button>
+                                <button style="background: rgba(255,255,255,0.2); border: none; padding: 8px 15px; border-radius: 5px; color: #fff; cursor: pointer;">Oracle AWR</button>
+                                <button style="background: rgba(255,255,255,0.2); border: none; padding: 8px 15px; border-radius: 5px; color: #fff; cursor: pointer;">Runbook</button>
                             </div>
                         </div>
                     </div>
@@ -567,343 +751,630 @@
             <div class="slide-number">6</div>
         </div>
 
-        <!-- Slide 7: Fast Resolution -->
-        <div class="slide" style="background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);">
+        <!-- Slide 7: Impact on 4-Developer Team -->
+        <div class="slide" style="background: linear-gradient(135deg, #232526 0%, #414345 100%);">
             <div class="slide-content">
-                <h2>5. Fast Incident Resolution</h2>
+                <h2>Impact for 4-Developer Team</h2>
+                
                 <div class="grid-2">
                     <div class="card">
-                        <h3>🎫 Optimized ServiceNow</h3>
-                        <ul>
-                            <li><strong>Templates per type:</strong> DB issue, API timeout, deployment failure</li>
-                            <li><strong>Auto-assignment:</strong> based on skills and availability</li>
-                            <li><strong>Integrated runbooks:</strong> procedures for common incidents</li>
-                            <li><strong>SLA tracking:</strong> P1: 1h, P2: 4h, P3: 8h</li>
-                            <li><strong>Teams integration:</strong> automatic notifications</li>
-                        </ul>
+                        <h3>📊 Our Real Metrics - Last 3 Months</h3>
+                        <div class="metric-box" style="margin-bottom: 15px;">
+                            <div class="number">14</div>
+                            <div class="label">Total Incidents (5/month avg)</div>
+                        </div>
+                        <div class="metric-box" style="margin-bottom: 15px;">
+                            <div class="number">0 P1</div>
+                            <div class="label">Critical Incidents (Great!)</div>
+                        </div>
+                        <div class="metric-box" style="margin-bottom: 15px;">
+                            <div class="number">~60%</div>
+                            <div class="label">Oracle/DB related</div>
+                        </div>
+                        <div class="metric-box">
+                            <div class="number">~30%</div>
+                            <div class="label">iBatis/Java timeouts</div>
+                        </div>
                     </div>
+                    
                     <div class="card">
-                        <h3>📱 Microsoft Teams War Room</h3>
-                        <ul>
-                            <li><strong>#incidents channel:</strong> communication hub</li>
-                            <li><strong>Alert bots:</strong> Prometheus → Teams webhook</li>
-                            <li><strong>Quick links:</strong> dashboards, logs, runbooks</li>
-                            <li><strong>Video calls:</strong> collaborative resolution</li>
-                            <li><strong>Post-mortem templates:</strong> standardized documentation</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="card" style="margin-top: 30px;">
-                    <h3>🔧 Diagnostic Tools</h3>
-                    <div class="grid-3">
+                        <h3>🎯 Expected Improvements with AI</h3>
                         <div class="benefit-item">
-                            <strong>Log Aggregation</strong>
-                            Centralized Azure Log Analytics
+                            <strong>Incident Volume:</strong>
+                            5/month → 2/month (60% reduction through early detection)
                         </div>
                         <div class="benefit-item">
-                            <strong>Metrics Dashboard</strong>
-                            Customized Prometheus + Grafana
+                            <strong>Resolution Speed:</strong>
+                            45min avg → 15min avg (67% faster with AI analysis)
                         </div>
                         <div class="benefit-item">
-                            <strong>DB Query Analyzer</strong>
-                            Automated Oracle AWR reports
+                            <strong>Prevention:</strong>
+                            80% of P2/P3 detected before becoming critical
+                        </div>
+                        <div class="benefit-item">
+                            <strong>Zero P1 Goal:</strong>
+                            Maintain our excellent track record with proactive monitoring
+                        </div>
+                        <div class="benefit-item">
+                            <strong>Knowledge:</strong>
+                            Every incident documented + pattern analysis for prevention
                         </div>
                     </div>
                 </div>
-                <div class="grid-3" style="margin-top: 30px;">
-                    <div class="metric-box">
-                        <div class="number">-60%</div>
-                        <div class="label">MTTR Reduction</div>
+                
+                <div class="highlight-box" style="margin-top: 40px;">
+                    <h3 style="margin-bottom: 25px;">⏰ Time Distribution - Projected</h3>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; text-align: left;">
+                        <div>
+                            <h4 style="color: #ff5757; margin-bottom: 15px;">Current (per dev/week)</h4>
+                            <div style="margin-bottom: 10px;">🐛 Incident resolution: <strong>8h (20%)</strong></div>
+                            <div style="margin-bottom: 10px;">💻 Development: <strong>24h (60%)</strong></div>
+                            <div style="margin-bottom: 10px;">📝 Documentation: <strong>4h (10%)</strong></div>
+                            <div>🤝 Meetings/others: <strong>4h (10%)</strong></div>
+                        </div>
+                        <div>
+                            <h4 style="color: #57ff57; margin-bottom: 15px;">With Claude + N8N (per dev/week)</h4>
+                            <div style="margin-bottom: 10px;">🐛 Incident resolution: <strong>3h (7.5%)</strong></div>
+                            <div style="margin-bottom: 10px;">💻 Development: <strong>28h (70%)</strong></div>
+                            <div style="margin-bottom: 10px;">📝 Documentation: <strong>5h (12.5%)</strong></div>
+                            <div>🤝 Meetings/others: <strong>4h (10%)</strong></div>
+                        </div>
                     </div>
-                    <div class="metric-box">
-                        <div class="number"><45min</div>
-                        <div class="label">Avg Resolution</div>
-                    </div>
-                    <div class="metric-box">
-                        <div class="number">90%</div>
-                        <div class="label">First Call Resolution</div>
+                    <div style="margin-top: 30px; padding: 20px; background: rgba(87, 255, 87, 0.2); border-radius: 10px;">
+                        <strong style="color: #57ff57; font-size: 1.3em;">Net gain: +5h productive development per dev/week = +20h/week for the team!</strong>
+                        <div style="margin-top: 10px; color: #ccc;">Plus: Better incident prevention means fewer interruptions to flow state</div>
                     </div>
                 </div>
             </div>
             <div class="slide-number">7</div>
         </div>
 
-        <!-- Slide 8: Knowledge Leveling -->
-        <div class="slide" style="background: linear-gradient(135deg, #2a5298 0%, #1e3c72 100%);">
+        <!-- Slide 8: Complete Incident Workflow -->
+        <div class="slide" style="background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);">
             <div class="slide-content">
-                <h2>6. Knowledge Leveling</h2>
-                <div class="grid-2">
-                    <div>
-                        <div class="card">
-                            <h3>📚 Centralized Documentation</h3>
-                            <ul>
-                                <li><strong>Azure DevOps Wiki:</strong> GAP technical documentation</li>
-                                <li><strong>Architecture Decision Records (ADRs):</strong> documented architectural decisions</li>
-                                <li><strong>API documentation:</strong> automatic Swagger/OpenAPI</li>
-                                <li><strong>Runbooks:</strong> operational procedures</li>
-                            </ul>
-                        </div>
-                        <div class="card" style="margin-top: 20px;">
-                            <h3>🎓 Copilot as Tutor</h3>
-                            <ul>
-                                <li>Inline explanations of complex code</li>
-                                <li>Best practice suggestions</li>
-                                <li>Usage example generation</li>
-                                <li>Accelerated onboarding</li>
-                            </ul>
+                <h2>Real Workflow: P2 Incident Resolution</h2>
+                <div class="workflow-diagram">
+                    <div style="text-align: center; margin-bottom: 30px; font-size: 1.2em; color: #f093fb;">
+                        ⏱️ Timeline: 0min → 15min (vs 45-60min current avg)
+                    </div>
+                    
+                    <div class="workflow-step">
+                        <div class="icon">⏰<br><small>0min</small></div>
+                        <div class="content">
+                            <h4>Prometheus detects anomaly</h4>
+                            <p>Response time &gt; 3s on PRM Payment Service (Java app)</p>
                         </div>
                     </div>
-                    <div>
-                        <div class="card">
-                            <h3>🤝 Team Practices</h3>
-                            <ul>
-                                <li><strong>Pair Programming:</strong> 2x per week, rotating pairs</li>
-                                <li><strong>Mandatory code review:</strong> continuous knowledge sharing</li>
-                                <li><strong>Tech Talks:</strong> 1x per sprint (30min)</li>
-                                <li><strong>Incident retrospectives:</strong> learn from mistakes</li>
-                                <li><strong>Rotation schedule:</strong> everyone exposed to all components</li>
-                            </ul>
-                        </div>
-                        <div class="benefit-list" style="margin-top: 20px;">
-                            <div class="benefit-item">
-                                <strong>Objective:</strong>
-                                Each dev capable of working on 80% of the system
-                            </div>
-                            <div class="benefit-item">
-                                <strong>Bus Factor:</strong>
-                                From 1-2 people to 3-4 people
-                            </div>
+                    
+                    <div class="workflow-step">
+                        <div class="icon">⚡<br><small>+30s</small></div>
+                        <div class="content">
+                            <h4>N8N receives webhook and processes</h4>
+                            <p>• Creates ServiceNow ticket (P2)<br>
+                               • Collects Java application logs from Azure<br>
+                               • Fetches Oracle DB metrics and iBatis query stats<br>
+                               • Gets Prometheus metrics for last 30min</p>
                         </div>
                     </div>
+                    
+                    <div class="workflow-step">
+                        <div class="icon">🤖<br><small>+1min</small></div>
+                        <div class="content">
+                            <h4>Claude AI analyzes our stack</h4>
+                            <p>• Analyzes Java exceptions and iBatis query logs<br>
+                               • Identifies: slow Oracle query in PaymentDAO.xml<br>
+                               • Root cause: missing index on PAYMENT_HISTORY table<br>
+                               • Risk assessment: P2 now, could become P1 under load<br>
+                               • Suggests: CREATE INDEX + query optimization</p>
+                        </div>
+                    </div>
+                    
+                    <div class="workflow-step">
+                        <div class="icon">📱<br><small>+2min</small></div>
+                        <div class="content">
+                            <h4>Notifications sent</h4>
+                            <p>• WhatsApp → Thiago 2 (on-call) with complete analysis<br>
+                               • Teams → #incidents channel with context and links<br>
+                               • ServiceNow ticket updated with AI findings<br>
+                               • Severity: P2 (non-critical, but needs attention)</p>
+                        </div>
+                    </div>
+                    
+                    <div class="workflow-step">
+                        <div class="icon">👨‍💻<br><small>+3min</small></div>
+                        <div class="content">
+                            <h4>Dev Thiago 2 starts investigation</h4>
+                            <p>• Opens WhatsApp, sees Claude analysis<br>
+                               • Reviews suggested index creation SQL<br>
+                               • Checks Oracle AWR report link<br>
+                               • Asks Claude: "Validate this index won't impact other queries?"</p>
+                        </div>
+                    </div>
+                    
+                    <div class="workflow-step">
+                        <div class="icon">🔧<br><small>+8min</small></div>
+                        <div class="content">
+                            <h4>Fix application</h4>
+                            <p>• Claude confirms index is safe<br>
+                               • Thiago 2 creates index in Oracle DEV environment<br>
+                               • Tests query performance: 5000ms → 50ms ✓<br>
+                               • Applies to PROD (non-blocking operation)<br>
+                               • Response times return to normal</p>
+                        </div>
+                    </div>
+                    
+                    <div class="workflow-step">
+                        <div class="icon">📊<br><small>+12min</small></div>
+                        <div class="content">
+                            <h4>Validation</h4>
+                            <p>• Prometheus confirms normal metrics<br>
+                               • N8N monitors for 5min<br>
+                               • No new alerts - issue resolved</p>
+                        </div>
+                    </div>
+                    
+                    <div class="workflow-step">
+                        <div class="icon">✅<br><small>+15min</small></div>
+                        <div class="content">
+                            <h4>Automatic closure &amp; learning</h4>
+                            <p>• Claude generates post-mortem with SQL statements<br>
+                               • N8N updates ServiceNow (resolved)<br>
+                               • Documentation sent to Teams<br>
+                               • Azure Wiki updated with new runbook entry<br>
+                               • Thiago 2 creates preventive task: "Review all iBatis queries for similar issues"</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 30px; text-align: center; padding: 30px; background: rgba(87, 255, 87, 0.15); border-radius: 15px; border: 2px solid rgba(87, 255, 87, 0.3);">
+                    <div style="font-size: 2em; margin-bottom: 15px;">⚡ 15 minutes vs 45-60 minutes</div>
+                    <div style="font-size: 1.2em; color: #57ff57;">67% reduction in resolution time + prevented potential P1 escalation!</div>
                 </div>
             </div>
             <div class="slide-number">8</div>
         </div>
 
-        <!-- Slide 9: Implementation Roadmap -->
-        <div class="slide" style="background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);">
+        <!-- Slide 9: Implementation -->
+        <div class="slide" style="background: linear-gradient(135deg, #232526 0%, #414345 100%);">
             <div class="slide-content">
-                <h2>Implementation Roadmap</h2>
-                <div class="timeline">
-                    <div class="timeline-item">
-                        <h4>Month 1-2: Foundations</h4>
-                        <ul style="margin-left: 20px;">
-                            <li>Azure DevOps pipeline setup with quality gates</li>
-                            <li>Prometheus configuration + Grafana dashboards</li>
-                            <li>Creation of templates and basic runbooks</li>
-                            <li>ServiceNow ↔ Teams integration</li>
-                        </ul>
+                <h2>Implementation Plan</h2>
+                
+                <div class="grid-2">
+                    <div>
+                        <div class="card">
+                            <h3>📅 Phase 1: Setup (Week 1-2)</h3>
+                            <ul>
+                                <li>Deploy N8N on Azure (container)</li>
+                                <li>Configure Claude API</li>
+                                <li>Setup WhatsApp Business API</li>
+                                <li>Teams webhooks integration</li>
+                                <li>First workflow: Prometheus alerts</li>
+                                <li>Test with non-prod environments</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="card" style="margin-top: 20px;">
+                            <h3>🔧 Phase 2: Core Workflows (Week 3-4)</h3>
+                            <ul>
+                                <li>Complete incident workflow for P2/P3</li>
+                                <li>ServiceNow ↔ N8N integration</li>
+                                <li>Automatic daily health check</li>
+                                <li>Deploy notifications</li>
+                                <li>Oracle DB monitoring integration</li>
+                            </ul>
+                        </div>
                     </div>
-                    <div class="timeline-item">
-                        <h4>Month 3-4: Automation & Monitoring</h4>
-                        <ul style="margin-left: 20px;">
-                            <li>Implementation of proactive alerts</li>
-                            <li>Automated tests in 50% of critical code</li>
-                            <li>First tech talks and pair programming sessions</li>
-                            <li>Oracle query optimization</li>
-                        </ul>
-                    </div>
-                    <div class="timeline-item">
-                        <h4>Month 5-6: Consolidation</h4>
-                        <ul style="margin-left: 20px;">
-                            <li>80% code coverage achieved</li>
-                            <li>Complete documentation in Azure Wiki</li>
-                            <li>Knowledge rotation established</li>
-                            <li>Success metrics being measured</li>
-                        </ul>
+                    
+                    <div>
+                        <div class="card">
+                            <h3>🤖 Phase 3: Claude Assistant (Week 5-6)</h3>
+                            <ul>
+                                <li>Train Claude on GAP-specific patterns</li>
+                                <li>Knowledge base: our 14 recent incidents</li>
+                                <li>Java/iBatis/Oracle troubleshooting guides</li>
+                                <li>Log analysis workflows</li>
+                                <li>Auto-documentation triggers</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="card" style="margin-top: 20px;">
+                            <h3>📈 Phase 4: Optimization (Week 7-8)</h3>
+                            <ul>
+                                <li>Alert fine-tuning based on our incident history</li>
+                                <li>Additional workflows as needed</li>
+                                <li>Team training sessions</li>
+                                <li>Efficiency metrics and dashboards</li>
+                                <li>Pattern analysis for prevention</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
-                <div class="card" style="margin-top: 30px; background: rgba(102, 126, 234, 0.15);">
-                    <h3 style="text-align: center; margin-bottom: 20px;">Estimated Effort</h3>
-                    <div class="grid-3">
-                        <div style="text-align: center;">
-                            <div style="font-size: 2em; color: #667eea; font-weight: bold;">20%</div>
-                            <div style="color: #ccc;">Team capacity</div>
+                
+                <div class="highlight-box" style="margin-top: 30px;">
+                    <h3 style="margin-bottom: 20px;">⚙️ Technical Requirements</h3>
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; text-align: left;">
+                        <div>
+                            <strong style="color: #f093fb;">N8N Hosting</strong><br>
+                            <small>Azure Container Instance<br>
+                            2 vCPU, 4GB RAM<br>
+                            ~$70/month</small>
                         </div>
-                        <div style="text-align: center;">
-                            <div style="font-size: 2em; color: #667eea; font-weight: bold;">6 months</div>
-                            <div style="color: #ccc;">Full implementation</div>
+                        <div>
+                            <strong style="color: #f093fb;">WhatsApp Business</strong><br>
+                            <small>Meta Business API<br>
+                            1 verified number<br>
+                            ~$0 (1000 msgs/month free)</small>
                         </div>
-                        <div style="text-align: center;">
-                            <div style="font-size: 2em; color: #667eea; font-weight: bold;">Zero</div>
-                            <div style="color: #ccc;">New licensing costs</div>
+                        <div>
+                            <strong style="color: #f093fb;">Claude API</strong><br>
+                            <small>Anthropic Claude Sonnet<br>
+                            Pay-as-you-go<br>
+                            ~$200/month estimated</small>
                         </div>
                     </div>
+                </div>
+                
+                <div class="benefit-item" style="margin-top: 30px; text-align: center; background: rgba(240, 147, 251, 0.2); border-color: #f093fb;">
+                    <strong>Team Effort:</strong>
+                    1 dedicated dev for 2 weeks (setup) + 10% capacity (maintenance)
                 </div>
             </div>
             <div class="slide-number">9</div>
         </div>
 
-        <!-- Slide 10: Expected Benefits -->
-        <div class="slide" style="background: linear-gradient(135deg, #2a5298 0%, #1e3c72 100%);">
+        <!-- Slide 10: Additional Benefits -->
+        <div class="slide" style="background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);">
             <div class="slide-content">
-                <h2>Expected Benefits</h2>
+                <h2>Benefits Beyond Incident Response</h2>
+                
                 <div class="grid-2">
                     <div class="card">
-                        <h3>📊 Success Metrics</h3>
+                        <h3>🎓 1. Knowledge &amp; Prevention</h3>
                         <div class="benefit-item">
-                            <strong>Quality</strong>
-                            40% fewer production bugs
+                            <strong>Pattern Analysis</strong>
+                            Claude analyzes our 14 incidents: "60% Oracle-related. Suggest: quarterly DB health reviews, index optimization, tablespace monitoring"
                         </div>
                         <div class="benefit-item">
-                            <strong>Speed</strong>
-                            3x more releases per sprint
+                            <strong>Preventive Recommendations</strong>
+                            Based on incident history, Claude suggests proactive improvements: connection pool tuning, query optimization, monitoring thresholds
                         </div>
                         <div class="benefit-item">
-                            <strong>Incidents</strong>
-                            -67% volume (15 → 5 per month)
-                        </div>
-                        <div class="benefit-item">
-                            <strong>MTTR</strong>
-                            -60% resolution time (2-4h → <45min)
-                        </div>
-                        <div class="benefit-item">
-                            <strong>Availability</strong>
-                            99.5% → 99.9% uptime
+                            <strong>Living Documentation</strong>
+                            Every incident becomes a learning opportunity - automatically documented with root cause, fix, and prevention strategy
                         </div>
                     </div>
+                    
                     <div class="card">
-                        <h3>💼 Business Impact</h3>
+                        <h3>🚀 2. Development Acceleration</h3>
                         <div class="benefit-item">
-                            <strong>Time to Market</strong>
-                            50% faster on new features
+                            <strong>Code Review for Java/iBatis</strong>
+                            Claude reviews PRs: "This iBatis query may cause table scan. Consider adding WHERE clause index hint"
                         </div>
                         <div class="benefit-item">
-                            <strong>Customer Satisfaction</strong>
-                            Less downtime and faster responses
+                            <strong>Test Generation</strong>
+                            "Claude, generate unit tests for PaymentService" → JUnit tests with Oracle DB mocks in seconds
                         </div>
                         <div class="benefit-item">
-                            <strong>Team Productivity</strong>
-                            60% time on development vs 40% on incidents (was 40/60)
-                        </div>
-                        <div class="benefit-item">
-                            <strong>Resilience</strong>
-                            Bus factor from 1-2 to 3-4 people
-                        </div>
-                        <div class="benefit-item">
-                            <strong>Knowledge</strong>
-                            Complete documentation and leveled team
+                            <strong>Legacy Code Understanding</strong>
+                            New dev asks: "Explain this Java 8 iBatis mapper" → Claude provides detailed explanation with examples
                         </div>
                     </div>
                 </div>
-                <div class="roi-box" style="margin-top: 30px;">
-                    <h4>Estimated ROI - 4 Developer Team</h4>
-                    <div class="roi-item">
-                        <span>Reduction in incident hours (20h/month → 8h/month)</span>
-                        <span style="color: #667eea; font-weight: bold;">48h/month saved</span>
+                
+                <div class="grid-2" style="margin-top: 30px;">
+                    <div class="card">
+                        <h3>📊 3. Proactive Monitoring</h3>
+                        <div class="benefit-item">
+                            <strong>Early Warning System</strong>
+                            Detect issues before they become incidents: slow queries, connection pool saturation, tablespace growth
+                        </div>
+                        <div class="benefit-item">
+                            <strong>Trend Analysis</strong>
+                            Claude spots trends: "Oracle tablespace growing 2GB/month. Will reach capacity in 3 months. Action needed."
+                        </div>
+                        <div class="benefit-item">
+                            <strong>Smart Alerts</strong>
+                            Reduce noise: only alert on real issues, not false positives
+                        </div>
                     </div>
-                    <div class="roi-item">
-                        <span>Productivity increase (Copilot + automation)</span>
-                        <span style="color: #667eea; font-weight: bold;">+30% speed</span>
+                    
+                    <div class="card">
+                        <h3>🔐 4. Compliance &amp; Audit</h3>
+                        <div class="benefit-item">
+                            <strong>Complete Audit Trail</strong>
+                            Every incident documented with timeline, actions, and resolution
+                        </div>
+                        <div class="benefit-item">
+                            <strong>Security Scanning</strong>
+                            Claude reviews code for SQL injection risks in iBatis queries, connection string exposure
+                        </div>
+                        <div class="benefit-item">
+                            <strong>Change Management</strong>
+                            Automatic documentation of all Oracle schema changes and Java deployments
+                        </div>
                     </div>
-                    <div class="roi-item">
-                        <span>Incident prevention (avg P1 cost: 8h x 10/month)</span>
-                        <span style="color: #667eea; font-weight: bold;">80h/month avoided</span>
-                    </div>
-                    <div class="roi-item" style="font-size: 1.2em; color: #667eea; font-weight: bold; padding-top: 20px;">
-                        <span>Total Estimated Gain</span>
-                        <span>~130 productive hours/month</span>
-                    </div>
+                </div>
+                
+                <div class="highlight-box" style="margin-top: 30px;">
+                    <h3 style="margin-bottom: 20px;">💡 Our Competitive Edge</h3>
+                    <p style="font-size: 1.2em; line-height: 1.8;">
+                        We already have <strong style="color: #57ff57;">zero P1 incidents</strong> - great stability!<br>
+                        With Claude + N8N, we'll <strong style="color: #f093fb;">reduce total incidents by 60%</strong>,<br>
+                        resolve issues <strong style="color: #f5576c;">3x faster</strong>, and have <strong style="color: #ffd700;">20h/week more</strong> for feature development.
+                    </p>
                 </div>
             </div>
             <div class="slide-number">10</div>
         </div>
 
-        <!-- Slide 11: Useful Links -->
-        <div class="slide" style="background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);">
+        <!-- Slide 11: Investment & Costs -->
+        <div class="slide" style="background: linear-gradient(135deg, #232526 0%, #414345 100%);">
             <div class="slide-content">
-                <h2>Useful Links and Resources</h2>
-                <div class="grid-2">
-                    <div class="links-section">
-                        <h3 style="color: #667eea; margin-bottom: 20px;">📚 Technical Documentation</h3>
-                        <a href="https://azure.microsoft.com/en-us/pricing/details/devops/" target="_blank">→ Azure DevOps Pricing</a>
-                        <a href="https://github.com/features/copilot#pricing" target="_blank">→ GitHub Copilot Pricing</a>
-                        <a href="https://prometheus.io/docs/introduction/overview/" target="_blank">→ Prometheus Documentation</a>
-                        <a href="https://www.servicenow.com/products/itsm/pricing.html" target="_blank">→ ServiceNow ITSM Pricing</a>
-                        <a href="https://www.oracle.com/database/pricing.html" target="_blank">→ Oracle Database Licensing</a>
+                <h2>💰 Investment Details</h2>
+                
+                <div class="cost-box">
+                    <h4>Monthly Costs - 4 Developer Team</h4>
+                    
+                    <div class="cost-item" style="background: rgba(240, 147, 251, 0.1); margin-bottom: 15px; padding: 15px; border-radius: 8px;">
+                        <strong style="color: #f093fb; font-size: 1.1em;">New Tools for Session 2</strong>
                     </div>
-                    <div class="links-section">
-                        <h3 style="color: #667eea; margin-bottom: 20px;">🎓 Best Practices & Guides</h3>
-                        <a href="https://docs.microsoft.com/en-us/azure/devops/pipelines/" target="_blank">→ Azure Pipelines Best Practices</a>
-                        <a href="https://sre.google/books/" target="_blank">→ Google SRE Books (Free)</a>
-                        <a href="https://martinfowler.com/articles/practical-test-pyramid.html" target="_blank">→ Test Pyramid - Martin Fowler</a>
-                        <a href="https://12factor.net/" target="_blank">→ The Twelve-Factor App</a>
-                        <a href="https://www.atlassian.com/incident-management/kpis/common-metrics" target="_blank">→ Incident Management Metrics</a>
+                    
+                    <div class="cost-item">
+                        <span>Claude API (Sonnet 4.5)</span>
+                        <span style="color: #fbbf24;">~$200/month</span>
                     </div>
-                </div>
-                <div class="roi-box" style="margin-top: 40px;">
-                    <h4>💰 Estimated Investment - Current Stack (4 Developers)</h4>
-                    <div class="roi-item">
-                        <span>Azure DevOps (already included in subscription)</span>
-                        <span style="color: #4ade80;">$0/month additional</span>
+                    <div class="cost-item">
+                        <span style="font-size: 0.9em; color: #888; padding-left: 20px;">└ Based on ~5 incidents/month + daily analysis + code review</span>
                     </div>
-                    <div class="roi-item">
-                        <span>GitHub Copilot Enterprise (4 licenses)</span>
-                        <span style="color: #fbbf24;">$156/month ($39/user)</span>
+                    
+                    <div class="cost-item">
+                        <span>N8N Hosting (Azure Container)</span>
+                        <span style="color: #fbbf24;">$70/month</span>
                     </div>
-                    <div class="roi-item">
-                        <span>Prometheus + Grafana (open source)</span>
+                    <div class="cost-item">
+                        <span style="font-size: 0.9em; color: #888; padding-left: 20px;">└ 2 vCPU, 4GB RAM, high availability</span>
+                    </div>
+                    
+                    <div class="cost-item">
+                        <span>WhatsApp Business API</span>
                         <span style="color: #4ade80;">$0/month</span>
                     </div>
-                    <div class="roi-item">
-                        <span>ServiceNow (already licensed)</span>
-                        <span style="color: #4ade80;">$0/month additional</span>
+                    <div class="cost-item">
+                        <span style="font-size: 0.9em; color: #888; padding-left: 20px;">└ ~50 messages/month (well within free tier)</span>
                     </div>
-                    <div class="roi-item">
-                        <span>Training and setup (one-time)</span>
-                        <span style="color: #fbbf24;">40h team effort</span>
+                    
+                    <div class="cost-item" style="border-top: 3px solid rgba(240, 147, 251, 0.8); padding-top: 20px; margin-top: 20px; background: rgba(240, 147, 251, 0.15); border-radius: 8px; padding: 20px;">
+                        <span style="font-size: 1.3em;"><strong>TOTAL NEW INVESTMENT</strong></span>
+                        <span style="color: #f093fb; font-weight: bold; font-size: 1.5em;">$270/month</span>
                     </div>
-                    <div class="roi-item" style="font-size: 1.3em; color: #667eea; font-weight: bold; padding-top: 20px; border-top: 2px solid rgba(102, 126, 234, 0.5);">
-                        <span>Total Monthly Investment</span>
-                        <span>~$156/month</span>
+                </div>
+                
+                <div class="cost-box" style="margin-top: 30px; background: linear-gradient(135deg, rgba(102, 126, 234, 0.15) 0%, rgba(118, 75, 162, 0.15) 100%); border-color: rgba(102, 126, 234, 0.5);">
+                    <h4 style="color: #667eea;">📊 Implementation Effort</h4>
+                    
+                    <div class="cost-item">
+                        <span>Initial Setup (one-time)</span>
+                        <span>2 weeks (1 developer)</span>
                     </div>
-                    <div class="roi-item" style="font-size: 1.3em; color: #4ade80; font-weight: bold;">
-                        <span>ROI (savings vs investment)</span>
-                        <span>130h/month vs $156 = 833x ROI</span>
+                    
+                    <div class="cost-item">
+                        <span>Claude training on our incidents</span>
+                        <span>4-8 hours (analyzing 14 incidents)</span>
+                    </div>
+                    
+                    <div class="cost-item">
+                        <span>Ongoing Maintenance</span>
+                        <span>~10% team capacity</span>
+                    </div>
+                    
+                    <div class="cost-item">
+                        <span>Team Training &amp; Documentation</span>
+                        <span>4-8 hours total</span>
+                    </div>
+                    
+                    <div class="cost-item" style="margin-top: 20px; padding-top: 20px; border-top: 2px solid rgba(102, 126, 234, 0.3);">
+                        <span><strong>Total Implementation Time</strong></span>
+                        <span style="color: #667eea; font-weight: bold;">~90 hours</span>
+                    </div>
+                </div>
+                
+                <div class="highlight-box" style="margin-top: 40px;">
+                    <h3 style="margin-bottom: 20px;">🎯 Key Metrics - Our Reality</h3>
+                    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; text-align: center;">
+                        <div>
+                            <div style="font-size: 2.5em; color: #f093fb;">$270</div>
+                            <div style="margin-top: 10px; color: #ccc;">Monthly Investment</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 2.5em; color: #57ff57;">5→2</div>
+                            <div style="margin-top: 10px; color: #ccc;">Incidents/Month</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 2.5em; color: #ffd700;">45→15min</div>
+                            <div style="margin-top: 10px; color: #ccc;">Avg Resolution</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 2.5em; color: #f5576c;">20h</div>
+                            <div style="margin-top: 10px; color: #ccc;">Saved/Week</div>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="slide-number">11</div>
         </div>
 
-        <!-- Slide 12: Next Steps -->
-        <div class="slide" style="background: linear-gradient(135deg, #2a5298 0%, #1e3c72 100%);">
-            <div class="slide-content" style="text-align: center;">
-                <h2 style="margin-bottom: 50px;">Next Steps</h2>
-                <div class="grid-3">
-                    <div class="card">
-                        <h3 style="font-size: 3em; margin-bottom: 20px;">1️⃣</h3>
-                        <h4 style="color: #667eea; margin-bottom: 15px;">Approval</h4>
-                        <p>Validate roadmap and allocate 20% of team capacity</p>
+        <!-- Slide 12: Useful Links -->
+        <div class="slide" style="background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);">
+            <div class="slide-content">
+                <h2>🔗 Useful Links and Resources</h2>
+                
+                <div class="grid-2">
+                    <div class="links-section">
+                        <h3 style="color: #f093fb; margin-bottom: 20px;">🤖 Claude AI</h3>
+                        <a href="https://www.anthropic.com/api" target="_blank">→ Claude API Documentation</a>
+                        <a href="https://www.anthropic.com/pricing#anthropic-api" target="_blank">→ Claude API Pricing</a>
+                        <a href="https://docs.anthropic.com/claude/docs" target="_blank">→ Integration Guides</a>
+                        <a href="https://docs.anthropic.com/claude/docs/vision" target="_blank">→ Best Practices for Prompts</a>
+                        <a href="https://console.anthropic.com/" target="_blank">→ API Console</a>
                     </div>
-                    <div class="card">
-                        <h3 style="font-size: 3em; margin-bottom: 20px;">2️⃣</h3>
-                        <h4 style="color: #667eea; margin-bottom: 15px;">Kick-off</h4>
-                        <p>Initial setup (Week 1-2): pipelines, monitoring, templates</p>
-                    </div>
-                    <div class="card">
-                        <h3 style="font-size: 3em; margin-bottom: 20px;">3️⃣</h3>
-                        <h4 style="color: #667eea; margin-bottom: 15px;">Monthly Review</h4>
-                        <p>Present metrics and adjust strategy as needed</p>
+                    
+                    <div class="links-section">
+                        <h3 style="color: #f093fb; margin-bottom: 20px;">⚙️ N8N Automation</h3>
+                        <a href="https://n8n.io/" target="_blank">→ N8N Official Website</a>
+                        <a href="https://docs.n8n.io/" target="_blank">→ N8N Documentation</a>
+                        <a href="https://n8n.io/pricing" target="_blank">→ N8N Pricing (Self-hosted = Free)</a>
+                        <a href="https://n8n.io/integrations" target="_blank">→ 400+ Integrations List</a>
+                        <a href="https://community.n8n.io/" target="_blank">→ N8N Community &amp; Templates</a>
                     </div>
                 </div>
-                <div class="card" style="margin-top: 60px; background: rgba(102, 126, 234, 0.15); border: 2px solid #667eea;">
-                    <h3 style="color: #667eea; margin-bottom: 20px;">🎯 Final Goal</h3>
-                    <p style="font-size: 1.3em; line-height: 1.8;">
-                        Transform the GAP team into a <strong style="color: #667eea;">high-performance</strong> operation,
-                        with <strong style="color: #667eea;">exceptional quality</strong>,
-                        <strong style="color: #667eea;">fast deliveries</strong> and
-                        <strong style="color: #667eea;">proven resilience</strong> -
-                        all using tools we already have!
+                
+                <div class="grid-2" style="margin-top: 30px;">
+                    <div class="links-section">
+                        <h3 style="color: #f093fb; margin-bottom: 20px;">📱 WhatsApp Business</h3>
+                        <a href="https://business.whatsapp.com/" target="_blank">→ WhatsApp Business Platform</a>
+                        <a href="https://developers.facebook.com/docs/whatsapp" target="_blank">→ WhatsApp Business API Docs</a>
+                        <a href="https://developers.facebook.com/docs/whatsapp/pricing" target="_blank">→ Pricing &amp; Free Tier Details</a>
+                        <a href="https://business.whatsapp.com/products/business-platform" target="_blank">→ Use Cases &amp; Setup Guide</a>
+                    </div>
+                    
+                    <div class="links-section">
+                        <h3 style="color: #f093fb; margin-bottom: 20px;">☁️ Azure Hosting</h3>
+                        <a href="https://azure.microsoft.com/en-us/pricing/details/container-instances/" target="_blank">→ Azure Container Instances Pricing</a>
+                        <a href="https://learn.microsoft.com/en-us/azure/container-instances/" target="_blank">→ Container Instances Docs</a>
+                        <a href="https://azure.microsoft.com/en-us/pricing/calculator/" target="_blank">→ Azure Pricing Calculator</a>
+                    </div>
+                </div>
+                
+                <div class="links-section" style="margin-top: 30px;">
+                    <h3 style="color: #f093fb; margin-bottom: 20px;">📚 Best Practices &amp; Guides</h3>
+                    <div class="grid-2">
+                        <div>
+                            <a href="https://www.anthropic.com/research" target="_blank">→ Anthropic Research Papers</a>
+                            <a href="https://github.com/n8n-io/n8n/tree/master/packages/nodes-base/nodes" target="_blank">→ N8N Node Examples (GitHub)</a>
+                            <a href="https://martinfowler.com/articles/patterns-of-distributed-systems/" target="_blank">→ Distributed Systems Patterns</a>
+                        </div>
+                        <div>
+                            <a href="https://sre.google/workbook/table-of-contents/" target="_blank">→ Google SRE Workbook</a>
+                            <a href="https://www.atlassian.com/incident-management" target="_blank">→ Incident Management Guide</a>
+                            <a href="https://github.com/n8n-io/n8n-docs" target="_blank">→ N8N Community Workflows</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="highlight-box" style="margin-top: 40px;">
+                    <h3 style="margin-bottom: 20px;">💡 Tip: Initial Setup</h3>
+                    <p style="font-size: 1.1em; text-align: left; line-height: 1.8;">
+                        1. Start with Claude API free trial ($5 credit)<br>
+                        2. Deploy N8N on Azure with free tier (first month)<br>
+                        3. Configure WhatsApp Business (1000 msgs/month free)<br>
+                        4. Train Claude on our 14 incident history<br>
+                        5. Create workflows for our most common incident types<br>
+                        6. Test with P3 incidents first, then expand
                     </p>
-                </div>
-                <div style="margin-top: 60px; font-size: 1.5em; color: #888;">
-                    Thank you! Questions?
                 </div>
             </div>
             <div class="slide-number">12</div>
         </div>
 
+        <!-- Slide 13: Next Steps -->
+        <div class="slide" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);">
+            <div class="slide-content" style="text-align: center;">
+                <h2 style="margin-bottom: 50px;">🚀 Next Steps</h2>
+                
+                <div class="grid-3">
+                    <div class="card">
+                        <h3 style="font-size: 3em; margin-bottom: 20px;">1️⃣</h3>
+                        <h4 style="color: #f093fb; margin-bottom: 15px;">Approval &amp; Budget</h4>
+                        <p>Validate $270/month investment and allocate 1 dev for 2 weeks for setup</p>
+                    </div>
+                    
+                    <div class="card">
+                        <h3 style="font-size: 3em; margin-bottom: 20px;">2️⃣</h3>
+                        <h4 style="color: #f093fb; margin-bottom: 15px;">POC (Week 1-2)</h4>
+                        <p>Deploy N8N, Claude API, train on our 14 incidents, first workflow working</p>
+                    </div>
+                    
+                    <div class="card">
+                        <h3 style="font-size: 3em; margin-bottom: 20px;">3️⃣</h3>
+                        <h4 style="color: #f093fb; margin-bottom: 15px;">Gradual Rollout</h4>
+                        <p>Weeks 3-8: expand workflows, monitor results, optimize based on real incident patterns</p>
+                    </div>
+                </div>
+                
+                <div class="highlight-box" style="margin-top: 60px;">
+                    <h3 style="margin-bottom: 30px;">🎯 Success Vision in 3 Months</h3>
+                    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; text-align: center;">
+                        <div>
+                            <div style="font-size: 3em; margin-bottom: 15px;">📉</div>
+                            <div style="font-size: 1.3em; color: #57ff57; font-weight: bold;">5→2</div>
+                            <div style="margin-top: 10px;">Incidents/Month</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 3em; margin-bottom: 15px;">⚡</div>
+                            <div style="font-size: 1.3em; color: #57ff57; font-weight: bold;">-67%</div>
+                            <div style="margin-top: 10px;">Resolution Time</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 3em; margin-bottom: 15px;">🛡️</div>
+                            <div style="font-size: 1.3em; color: #57ff57; font-weight: bold;">0 P1</div>
+                            <div style="margin-top: 10px;">Maintain Excellence</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 3em; margin-bottom: 15px;">🚀</div>
+                            <div style="font-size: 1.3em; color: #ffd700; font-weight: bold;">+50%</div>
+                            <div style="margin-top: 10px;">Dev Time</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 60px; padding: 40px; background: rgba(0,0,0,0.3); border-radius: 20px; border: 2px solid rgba(255, 215, 0, 0.5);">
+                    <h3 style="color: #ffd700; margin-bottom: 20px; font-size: 2em;">✨ From Good to Excellent</h3>
+                    <p style="font-size: 1.4em; line-height: 1.9;">
+                        We already have <strong style="color: #57ff57;">zero P1 incidents</strong> - that's great stability!<br>
+                        Now let's <strong style="color: #f093fb;">reduce P2/P3 by 60%</strong>,<br>
+                        <strong style="color: #f5576c;">resolve 3x faster</strong>,<br>
+                        and <strong style="color: #ffd700;">spend more time on innovation</strong> instead of firefighting.
+                    </p>
+                </div>
+                
+                <div style="margin-top: 60px; font-size: 2em; color: #fff;">
+                    Let's build the future together! 🚀
+                </div>
+                
+                <div style="margin-top: 30px; font-size: 1.2em; color: #ccc;">
+                    Questions?
+                </div>
+            </div>
+            <div class="slide-number">13</div>
+        </div>
+
     </div>
-</body>
-</html>
+    
+    <script>
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            const slides = document.querySelectorAll('.slide');
+            const currentSlide = Math.round(window.scrollY / window.innerHeight);
+            
+            if (e.key === 'ArrowDown' || e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
+                if (currentSlide < slides.length - 1) {
+                    slides[currentSlide + 1].scrollIntoView({ behavior: 'smooth' });
+                }
+            } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+                e.preventDefault();
+                if (currentSlide > 0) {
+                    slides[currentSlide - 1].scrollIntoView({ behavior: 'smooth' });
+                }
+            } else if (e.key === 'Home') {
+                e.preventDefault();
+                slides[0].scrollIntoView({ behavior: 'smooth' });
+            } else if (e.key === 'End') {
+                e.preventDefault();
+                slides[slides.length - 1].scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    </script>
+
+
+</body></html>
